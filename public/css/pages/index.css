@@ -1,0 +1,44 @@
+.banner {
+	aspect-ratio: 5 / 2;
+	background-size: cover;
+	border-radius: 1em;
+	margin-bottom: 3em;
+	position: relative;
+	background-image: radial-gradient(
+		circle at 25% 75%,
+		#ff9d002f 0%,
+		#ff9d0017 120%
+	), url("/img/pie.svg");
+	background-size: cover, 35%;
+	background-repeat: no-repeat;
+	background-position: 100%, calc(100% - 3em);
+	box-shadow: 0 1px 50px 0 rgba(65, 34, 0, 0.05);
+	display: flex;
+	align-items: center;
+	padding-left: 3em;
+}
+	.banner-hero {
+		position: absolute;
+		font-size: 2em;
+	}
+		.banner-subtitle {
+			font-size: 89%;
+			font-weight: 500;
+			margin-bottom: -0.6rem;
+		}
+		.banner-caption {
+			font-size: 43%;
+		}
+
+@media screen and (max-width: 1100px) {
+    .banner {
+        border-radius: 0;
+        background-size: cover, 30%;
+        background-position: 100%, calc(100% - 1em);
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+    .banner-hero {
+        font-size: 6.5vw;
+    }
+}

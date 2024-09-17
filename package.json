@@ -1,0 +1,18 @@
+{
+	"name": "cmcraft.su",
+	"description": "Сайт ЦМ Крафта",
+	"type": "module",
+	"scripts": {
+		"dev": "nodemon index.js",
+		"start": "node index.js"
+	},
+	"dependencies": {
+		"ejs": "^3.1.10",
+		"express": "^4.21.0",
+		"nodemon": "^3.1.4"
+	},
+	"imports": {
+		"#views/*": "./views/*.ejs",
+		"#server/*": "./server/*.js"
+	}
+}

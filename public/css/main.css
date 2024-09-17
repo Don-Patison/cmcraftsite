@@ -1,0 +1,39 @@
+/* General styles */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Golos UI', 'Arial', sans-serif;
+	font-feature-settings: "kern";
+	text-rendering: optimizeLegibility;
+	line-height: 1.4;
+	font-size: 150%;
+	color: #070400;
+}
+
+h1, h2, h3, h4, h5, h6,
+.title {
+	font-family: 'Golos Text', sans-serif;
+	font-weight: 720;
+}
+
+strong, b {
+	font-weight: 700;
+}
+
+/* Layout */
+.container {
+	width: 1080px;
+	margin: auto;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+@media screen and (max-width: 1100px) {
+	.container {
+		width: 100%;
+	}
+}
