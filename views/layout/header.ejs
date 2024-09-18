@@ -1,15 +1,24 @@
 <nav>
     <menu class = "container">
 
-        <a href="/" class="menu-link active">
-            <span>Главная</span>
-        </a>
-        <a href="/fuck" class="menu-link">
-            <span>FAQ</span>
-        </a>
-        <a href="/rules" class="menu-link">
-            <span>Правила</span>
-        </a>
+		<% const links = [
+			{ href: '/', text: 'Главная' },
+			{ href: '/fuck', text: 'FAQ' },
+			{ href: '/rules', text: 'Правила' }
+		]; %>
+	  
+		<% links.forEach(link => { %>
+			<a 
+				href="<%= link.href %>" 
+				class="
+					menu-link 
+					<%= 
+						(req.baseUrl === link.href || (req.baseUrl === '' && link.href === '/')) ? 'active' : '' 
+					%>"
+				>
+			<span><%= link.text %></span>
+			</a>
+		<% }); %>
 
         <div class = "connect">
             Подключиться — <strong class = "ip">cmcraft.su</strong>
