@@ -83,6 +83,7 @@ menu {
 				left: 0;
 				right: 0;
 				z-index: 5;
+				height: 2em;
 				background-color: white;
 				padding: 0.2em 1em;
 				text-align: center;
@@ -98,6 +99,9 @@ menu {
 			menu .online {
 				font-size: 75%;
 			}
+		body {
+			margin-bottom: 2em;
+		}
 	}
 
 .status {
