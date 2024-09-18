@@ -1,4 +1,10 @@
 /* General styles */
+
+:root {
+	--font: 'Golos UI', 'Trebuchet MS', sans-serif;
+	--font-accent: 'Golos Text', 'Tahoma', sans-serif;
+}
+
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -6,7 +12,7 @@
 }
 
 body {
-	font-family: 'Golos UI', 'Arial', sans-serif;
+	font-family: var(--font);
 	font-feature-settings: "kern";
 	text-rendering: optimizeLegibility;
 	line-height: 1.4;
@@ -16,7 +22,7 @@ body {
 
 h1, h2, h3, h4, h5, h6,
 .title {
-	font-family: 'Golos Text', sans-serif;
+	font-family: var(--font-accent);
 	font-weight: 720;
 }
 
