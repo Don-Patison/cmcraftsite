@@ -70,13 +70,18 @@ menu {
 			color: #ec7011;
 			text-decoration-color: color-mix(in srgb, currentColor, transparent 50%);
 		}
-			.menu-link.active{
-				color: black;
-				pointer-events: none;
-			}
-			.menu-link.active > span {
-				text-decoration: none;
-			}
+		.menu-link.active{
+			color: black;
+			pointer-events: none;
+		}
+		.menu-link.active > span {
+			text-decoration: none;
+		}
+		.menu-link:active > span {
+			color: #ff0000;
+			text-decoration-color: color-mix(in srgb, currentColor, transparent 50%);
+		}
+		
 
 	menu .connect {
 		margin-left: auto;
