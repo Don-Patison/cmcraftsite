@@ -9,6 +9,7 @@
 	"dependencies": {
 		"ejs": "^3.1.10",
 		"express": "^4.21.0",
+		"minecraftstatuspinger": "^1.1.5",
 		"nodemon": "^3.1.4"
 	},
 	"imports": {
