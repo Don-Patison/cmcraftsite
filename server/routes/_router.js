@@ -1,5 +1,5 @@
 // Импорт всех обработчиков
-import index from './index.js'
+import index from './pages/index.js'
 
 // Пути обработчиков
 export default {
