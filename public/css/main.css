@@ -32,6 +32,7 @@ strong, b {
 
 a,
 a u {
+	color: #0060a0;
 	text-decoration: underline;
 	text-decoration-thickness: 1px;
 	text-underline-offset: .175em;
@@ -46,7 +47,12 @@ a:has(u) {
 
 a:hover,
 a:hover u {
+	color: #d65d00;
 	text-decoration-color: currentColor;
+}
+
+a:active {
+	color: #d20000;
 }
 
 a.active {
