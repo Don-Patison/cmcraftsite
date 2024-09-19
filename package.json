@@ -14,6 +14,7 @@
 	},
 	"imports": {
 		"#views/*": "./views/*.ejs",
-		"#server/*": "./server/*.js"
+		"#server/*": "./server/*.js",
+		"#public/*": "./public/*"
 	}
 }
