@@ -30,6 +30,31 @@ strong, b {
 	font-weight: 700;
 }
 
+a,
+a u {
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: .175em;
+	text-decoration-color: color-mix(in srgb, currentColor, transparent 80%);
+	text-decoration-skip: none;
+	text-decoration-skip-ink: none;
+}
+
+a:has(u) {
+	text-decoration: none;
+}
+
+a:hover,
+a:hover u {
+	text-decoration-color: currentColor;
+}
+
+a.active {
+	text-decoration: none;
+	color: inherit;
+	pointer-events: none;
+}
+
 /* Layout */
 .container {
 	width: 1080px;
