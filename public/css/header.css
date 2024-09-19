@@ -75,7 +75,7 @@ menu {
 			margin-bottom: 2.5em;
 		}
 		menu {
-			justify-content: space-around;
+			justify-content: space-between;
 		}
 			menu .connect {
 				position: fixed;
@@ -98,6 +98,7 @@ menu {
 				}
 			menu .online {
 				font-size: 75%;
+				right: 1.4em;
 			}
 		body {
 			margin-bottom: 2em;
