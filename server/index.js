@@ -1,6 +1,12 @@
 import express from 'express'
 const cmc = express()
 
+// Инъектим полный путь
+cmc.use((req, res, next) => {
+	req.fullPath = req.baseUrl + req.path
+	next()
+})
+
 // Устанавливаем шаблонизатор. Папка /views выбирается автоматически.
 cmc.set('view engine', 'ejs');
 

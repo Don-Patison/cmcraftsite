@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+		<%- include('../layout/head'); -%>
+		<link rel = "stylesheet" href = "/css/pages/rules.css">
+</head>
+<body>
+
+		<%- include('../layout/header'); -%>
+
+			<nav class="rule-categories">
+				<% categories.forEach(category => { %>
+					<a 
+						href="/rules/<%= category.url === 'general' ? '' : category.url %>" 
+						class="
+							rule-category 
+							<%= 
+								req.fullPath.includes(category.url)
+								|| category.url === 'general' && (
+									req.fullPath === '/rules'
+									|| req.fullPath === '/rules/'
+								)
+								 ? 'active' : '' %>
+						"
+						title = "<%- category.description %>"
+					>
+						<nobr><%- category.title %></nobr>
+					</a>
+				<% }) %>
+			</nav>
+		</nav>
+
+		<main>
+			<section class="container">
+				
+				<% if (req.fullPath === '/rules' || req.fullPath === '/rules/' || req.fullPath.includes('administration')) { %>
+					<search class = "rules-search">
+						<input
+							type="search"
+							id="search"
+							placeholder="Поиск..."
+							oninput="searchRules()"
+						/>
+						<div id = "tags" class = "rules-search-tags"></div>
+					</search>
+				<% } %>
+
+
+				<div class = "rules <%= (req.fullPath === '/rules' || req.fullPath === '/rules/') ? 'general' : req.fullPath.split('/')[2] %>">
+					<%- text %>
+				</div>
+
+			</section>
+		</main>
+
+		<%- include('../layout/footer'); -%>
+		
+		<script>
+			const originalRules = document.querySelector('.rules').innerHTML
+			// Функция, извлекающая правила как массив объектов { number, name, description, tags }
+			function extractRules() {
+				const rulesArray = []
+				const rulesSection = document.querySelector('.rules ol')
+
+				// Перебираем рекурсивно
+				function processListItems(listItems, prefix = '') {
+					listItems.forEach((item, index) => {
+
+						// Достаём номер
+						const number = prefix ? `${prefix}.${index + 1}` : `${index + 1}`
+
+						// Пропускаем сами правила 1 и 2, обрабатываем их детей
+						if (number === '1' || number === '2') {
+							const nestedList = item.querySelector('ol')
+							if (nestedList) {
+								processListItems(Array.from(nestedList.children), number)
+							}
+							return
+						}
+
+						// Достаём название, описание, тэги
+						const strongElement = item.querySelector('strong')
+						const descriptionParagraphs = Array.from(item.querySelectorAll('p'))
+							.filter(
+								(p, i) => !p.querySelector('strong') 
+										&& p.parentElement === item
+							)
+						const tags = item.querySelector('tags')
+						
+						// Записываем
+						// if (strongElement) {
+							const rule = {
+								number: number,
+								name: strongElement?.outerHTML,
+								description: descriptionParagraphs.map(p => p.outerHTML).join(' '),
+								tags: tags ? tags.innerHTML.split(', ') : []
+							}
+							rulesArray.push(rule)
+						// }
+
+						// Продолжаем рекурсию
+						const nestedList = item.querySelector('ol')
+						if (nestedList) {
+							processListItems(Array.from(nestedList.children), number)
+						}
+					})
+				}
+
+				processListItems(Array.from(rulesSection.children))
+				return rulesArray
+			}
+
+			const rules = extractRules()
+
+		</script>
+
+		<script>
+			// Поиск. Мега костыль, но зато md-файлы будут чистые. Пусть потеет машина!
+			// Работает только с general.md, хотя в теории можно допилить. Но что искать в других разделах? :)
+			function searchRules() {
+				const query = document.getElementById('search').value.toLowerCase();
+				const results = [];
+
+				const rulesContainer = document.querySelector('.rules');
+
+				if (query) {
+					// Записываем GET-параметр
+					window.history.pushState('', '', `?search=${query}`);
+
+					const numbers = new Set();
+
+					rules.forEach(rule => {
+						const { number, name, description, tags } = rule;
+
+						// Вытягиваем названия, описания и тэги правил
+						const nameText = name?.replace(/<[^>]*>/g, '').toLowerCase();
+						const descriptionText = description.replace(/<[^>]*>/g, '').toLowerCase();
+						const tagsText = tags.map(tag => tag.replace(/<[^>]*>/g, '').toLowerCase());
+
+						// Сверяем с запросом
+						if (number.toLowerCase().includes(query) || 
+							nameText?.includes(query) || 
+							descriptionText.includes(query) ||
+							tagsText.some(tag => tag.includes(query))) {
+
+							// Оборачиваем совпадения в <mark>
+							const highlighted = {
+								name: name?.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`),
+								description: description.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`),
+								tags: rule.tags.map(tag => tag.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`))
+							};
+
+							// Записываем, если ещё не записали
+							if (!numbers.has(number)) {
+								numbers.add(number);
+								results.push(
+									`<div class="rule" style="margin-left: 2em;">
+										<span class="rule-number">
+											${number}.
+										</span>
+										${highlighted.name ? `<div class="rule-name">${highlighted.name}</div>` : ''}
+										${highlighted.tags.length > 0 ? `<span class="rule-tags">${highlighted.tags.join(', ')}</span>` : ''}
+										<div class="rule-description">
+											${highlighted.description}
+										</div>
+									</div>`.replaceAll('\t', '')
+								);
+							}
+						}
+					});
+				} else {
+					// Если запрос пустой, чистим GET-параметры
+					window.history.replaceState(null, '', window.location.pathname); 
+					rulesContainer.innerHTML = originalRules;
+					return;
+				}
+
+				// Если ничего не нашлось
+				rulesContainer.innerHTML = results.length > 0 ? results.join('') : `
+					<span class="">Ничего не найдено :(</span>
+				`;
+			}
+
+			const query = new URLSearchParams(window.location.search).get('search')
+			if (query) {
+				document.getElementById('search').value = query
+				searchRules()
+			}
+		</script>
+
+		<script>
+			// Прокрутка к выбранной категории, актуально на мобиле
+			const ruleCategories = document.querySelector('.rule-categories')
+			const activeCategory = document.querySelector('.rule-category.active')
+			ruleCategories.scrollLeft = activeCategory.offsetLeft - 50
+		</script>
+
+		<script>
+			// Вытягиваем тэги и количества
+			let tags = {}
+			for (const rule of rules) {
+				for (const tag of rule.tags) {
+					if (!tags[tag]) {
+						tags[tag] = 1
+					} else {
+						tags[tag]++
+					}
+				}
+			}
+			// Сортировка
+			tags = Object.entries(tags)
+				.sort(([,a],[,b]) => a-b)
+				.reverse()
+				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+
+			// Вставляем под поиск
+			const tagsContainer = document.getElementById('tags')
+			for (tag in tags) {
+				const count = tags[tag]
+				tagsContainer.innerHTML += `<a class = "rules-search-tag" href = "?search=${tag}">${tag} · ${count}</a>`
+			}
+		</script>
+		
+</body>
+</html>

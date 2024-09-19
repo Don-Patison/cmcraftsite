@@ -1,0 +1,32 @@
+[
+    {
+        "url": "introduction",
+        "title": "Вступление",
+        "description": ""
+    },
+    {
+        "url": "general",
+        "title": "Основные правила",
+        "description": "Вписаться в общество или быть счастливым?"
+    },
+    {
+        "url": "mods",
+        "title": "Запрещённые моды",
+        "description": ""
+    },
+    {
+        "url": "administration",
+        "title": "Кодекс администрации",
+        "description": ""
+    },
+    {
+        "url": "war",
+        "title": "Правила войны",
+        "description": ""
+    },
+    {
+        "url": "other",
+        "title": "Прочие моменты",
+        "description": ""
+    }
+]
