@@ -82,21 +82,19 @@
 						const strongElement = item.querySelector('strong')
 						const descriptionParagraphs = Array.from(item.querySelectorAll('p'))
 							.filter(
-								(p, i) => !p.querySelector('strong') 
-										&& p.parentElement === item
+								(p, i) => !p.querySelector('strong') // убирает параграф с названием
+										&& p.parentElement === item // убирает параграфы дочерних правил
 							)
 						const tags = item.querySelector('tags')
 						
 						// Записываем
-						// if (strongElement) {
-							const rule = {
-								number: number,
-								name: strongElement?.outerHTML,
-								description: descriptionParagraphs.map(p => p.outerHTML).join(' '),
-								tags: tags ? tags.innerHTML.split(', ') : []
-							}
-							rulesArray.push(rule)
-						// }
+						const rule = {
+							number: number,
+							name: strongElement?.outerHTML,
+							description: descriptionParagraphs.map(p => p.outerHTML).join(' '),
+							tags: tags ? tags.innerHTML.split(', ') : []
+						}
+						rulesArray.push(rule)
 
 						// Продолжаем рекурсию
 						const nestedList = item.querySelector('ol')
