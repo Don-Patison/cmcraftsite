@@ -1,0 +1,16 @@
+<footer>
+
+</footer>
+
+<script>
+// Ссылки по Бирману
+const QUOTATION_MARKS = '"\'«»‘’‚‛“”„‟‹›\(\)' // Перечень возможных кавычек
+const PUNCTUATION_MARKS = '.!?:;,' // Перечень возможных знаков препинания, стоящих после последней кавычки
+
+const surroundedByQuotationMarks = new RegExp(`^([${QUOTATION_MARKS}]{1})(.*)([${QUOTATION_MARKS}]{1}[${PUNCTUATION_MARKS}]?)$`) // Магическое регулярное выражение, чтобы найти и заменить ссылки, начинающиеся (^) с кавычки и заканчивающиеся ($) кавычкой с необязательным знаком препинания
+
+Array.from(document.querySelectorAll('a')) // Находим все ссылки
+    .filter(a => surroundedByQuotationMarks.test(a.textContent)) // Отбираем нужные нам
+    .forEach(a => a.innerHTML = a.innerHTML.replace(surroundedByQuotationMarks, '$1<u>$2</u>$3')) // Заворачиваем содержимое в <u>
+
+</script>
