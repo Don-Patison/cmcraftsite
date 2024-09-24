@@ -3,7 +3,8 @@ const cmc = express()
 
 // Инъектим полный путь
 cmc.use((req, res, next) => {
-	req.fullPath = req.baseUrl + req.path
+	const path = req.baseUrl + req.path
+	req.fullPath = path.split('/').filter(s => s)
 	next()
 })
 

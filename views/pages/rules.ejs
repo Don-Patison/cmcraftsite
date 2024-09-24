@@ -17,8 +17,7 @@
 							<%= 
 								req.fullPath.includes(category.url)
 								|| category.url === 'general' && (
-									req.fullPath === '/rules'
-									|| req.fullPath === '/rules/'
+									req.fullPath.length === 1
 								)
 								 ? 'active' : '' %>
 						"
@@ -33,7 +32,7 @@
 		<main>
 			<section class="container">
 				
-				<% if (req.fullPath === '/rules' || req.fullPath === '/rules/' || req.fullPath.includes('administration')) { %>
+				<% if (req.fullPath.length === 1 || req.fullPath.includes('administration')) { %>
 					<search class = "rules-search">
 						<input
 							type="search"
@@ -45,8 +44,7 @@
 					</search>
 				<% } %>
 
-
-				<div class = "rules <%= (req.fullPath === '/rules' || req.fullPath === '/rules/') ? 'general' : req.fullPath.split('/')[2] %>">
+				<div class = "rules <%= (req.fullPath.length === 1) ? 'general' : req.fullPath[1] %>">
 					<%- text %>
 				</div>
 
@@ -115,6 +113,7 @@
 		<script>
 			// Поиск. Мега костыль, но зато md-файлы будут чистые. Пусть потеет машина!
 			// Работает только с general.md, хотя в теории можно допилить. Но что искать в других разделах? :)
+			var notFound = false;
 			function searchRules() {
 				const query = document.getElementById('search').value.toLowerCase();
 				const results = [];
@@ -173,10 +172,14 @@
 					return;
 				}
 
-				// Если ничего не нашлось
-				rulesContainer.innerHTML = results.length > 0 ? results.join('') : `
-					<span class="">Ничего не найдено :(</span>
-				`;
+				// Нашлось ли что-то?
+				if (results.length > 0) {
+					notFound = false
+					rulesContainer.innerHTML = results.join('')
+				} else {
+					notFound = true
+					rulesContainer.innerHTML = `<span class="">Ничего не найдено :(</span>`
+				}
 			}
 
 			const query = new URLSearchParams(window.location.search).get('search')
