@@ -218,6 +218,11 @@
 				tagsContainer.innerHTML += `<a class = "rules-search-tag" href = "?search=${tag}">${tag} · ${count}</a>`
 			}
 		</script>
+
+		<script>
+			// Расставляем пояснения для <new>
+			document.querySelectorAll('new').forEach(el => el.title = "Это появилось недавно") 
+		</script>
 		
 </body>
 </html>
