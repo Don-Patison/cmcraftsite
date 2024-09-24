@@ -132,6 +132,8 @@ tags {
 		font-size: 80%;
 		border-radius: 0.3em;
 		border: 2px solid #e2e2e2;
+		background-color: transparent;
+		color: inherit;
 	}
 
 	.rules-search-tags {
@@ -143,7 +145,7 @@ tags {
 		.rules-search-tag {
 			text-decoration: none;
 			font-size: 50%;
-			background-color: #f2f2f2;
+			background-color: #8080801a;
 			padding: 0 0.5em;
 			padding-bottom: 1px;
 			border-radius: 0.3em;
@@ -198,5 +200,18 @@ tags {
 	.rules-search-tag {
 		font-size: 45%;
 		padding: 0 0.4em;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	.rules-search > input {
+		border-color: #ddd;
+	}
+	ol li:before {
+		background-color: #ec701157;
+	}
+	.rule-tags,
+	tags {
+		opacity: 0.5;
 	}
 }

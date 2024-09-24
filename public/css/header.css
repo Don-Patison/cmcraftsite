@@ -10,11 +10,8 @@ menu {
 	position: relative;
 }
 	.menu-link {
-		text-decoration: none;
 		font-weight: 550;
-		color: #0060a0;
 		padding-top: 1em;
-		user-select: none;
 		font-family: var(--font-accent);
 	}
 		.menu-link > span {
@@ -25,20 +22,12 @@ menu {
 			text-decoration-skip: none;
 			text-decoration-skip-ink: none;
 		}
-		.menu-link:hover > span {
-			color: #ec7011;
-			text-decoration-color: color-mix(in srgb, currentColor, transparent 50%);
-		}
-		.menu-link.active{
-			color: black;
+		.menu-link.active {
+			color: inherit;
 			pointer-events: none;
 		}
 		.menu-link.active > span {
 			text-decoration: none;
-		}
-		.menu-link:active > span {
-			color: #ff0000;
-			text-decoration-color: color-mix(in srgb, currentColor, transparent 50%);
 		}
 		
 
@@ -84,7 +73,9 @@ menu {
 				right: 0;
 				z-index: 5;
 				height: 2em;
-				background-color: white;
+				background-color: #ffffffbb;
+				backdrop-filter: blur(24px);
+				-webkit-backdrop-filter: blur(24px);
 				padding: 0.2em 1em;
 				text-align: center;
 				border-top: 1px solid #f7f7f7;
@@ -121,3 +112,13 @@ menu {
 	.status-unknown {
 		background-color: #746e6e;
 	}
+
+@media (prefers-color-scheme: dark) {
+	@media screen and (max-width: 800px) {
+		menu .connect {
+			background-color: #3a3632aa;
+			backdrop-filter: blur(12px);
+			border: none;
+		}
+	}
+}

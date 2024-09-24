@@ -78,3 +78,16 @@ a.active {
 		width: 100%;
 	}
 }
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #2d2a27;
+		color: #f5f4f2;
+	}
+	a, 
+	a u {
+		color: #4eb8ff;
+		text-decoration-color: color-mix(in srgb, currentColor, transparent 60%);
+		text-decoration-thickness: 2px;
+	}
+}
