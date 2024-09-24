@@ -201,6 +201,9 @@ tags {
 		font-size: 45%;
 		padding: 0 0.4em;
 	}
+	.rules > ol > li > ol > li > ol {
+		hyphens: auto;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
