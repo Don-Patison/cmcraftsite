@@ -113,7 +113,6 @@
 		<script>
 			// Поиск. Мега костыль, но зато md-файлы будут чистые. Пусть потеет машина!
 			// Работает только с general.md, хотя в теории можно допилить. Но что искать в других разделах? :)
-			var notFound = false;
 			function searchRules() {
 				const query = document.getElementById('search').value.toLowerCase();
 				const results = [];
@@ -174,10 +173,8 @@
 
 				// Нашлось ли что-то?
 				if (results.length > 0) {
-					notFound = false
 					rulesContainer.innerHTML = results.join('')
 				} else {
-					notFound = true
 					rulesContainer.innerHTML = `<span class="">Ничего не найдено :(</span>`
 				}
 			}
