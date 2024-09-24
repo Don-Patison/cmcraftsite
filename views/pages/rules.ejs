@@ -44,7 +44,11 @@
 					</search>
 				<% } %>
 
-				<div class = "rules <%= (req.fullPath.length === 1) ? 'general' : req.fullPath[1] %>">
+				<div class = "
+					rules
+					<%= (req.fullPath.length === 1) ? 'general' : req.fullPath[1] %>
+					<%= (req.query.search) ? 'searched' : '' %>
+				">
 					<%- text %>
 				</div>
 

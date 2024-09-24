@@ -1,6 +1,9 @@
 .rules {
 	font-size: 90%;
 }
+	.rules.searched {
+		animation: appear 0.08s;
+	}
 	.rules.general b,
 	.rules.general strong {
 		font-family: var(--font-accent);
@@ -217,4 +220,9 @@ tags {
 	tags {
 		opacity: 0.5;
 	}
+}
+
+@keyframes appear {
+	from { opacity: 0 }
+	to { opacity: 1 }
 }
