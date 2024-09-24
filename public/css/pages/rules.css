@@ -134,7 +134,7 @@ tags {
 		padding: 0.3em 0.5em;
 		font-size: 80%;
 		border-radius: 0.3em;
-		border: 2px solid #e2e2e2;
+		border: 2px solid #9191914f;
 		background-color: transparent;
 		color: inherit;
 	}
@@ -210,9 +210,6 @@ tags {
 }
 
 @media (prefers-color-scheme: dark) {
-	.rules-search > input {
-		border-color: #ddd;
-	}
 	ol li:before {
 		background-color: #ec701157;
 	}

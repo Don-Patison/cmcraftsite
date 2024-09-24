@@ -5,7 +5,7 @@ menu {
 	display: flex;
 	align-items: flex-end;
 	gap: 2em;
-	border-bottom: 2px solid #e2e2e2;
+	border-bottom: 2px solid #9191914f;
 	padding-bottom: 1em;
 	position: relative;
 }
@@ -14,21 +14,6 @@ menu {
 		padding-top: 1em;
 		font-family: var(--font-accent);
 	}
-		.menu-link > span {
-			text-decoration: underline;
-			text-decoration-thickness: 1px;
-			text-underline-offset: .175em;
-			text-decoration-color: color-mix(in srgb, currentColor, transparent 80%);
-			text-decoration-skip: none;
-			text-decoration-skip-ink: none;
-		}
-		.menu-link.active {
-			color: inherit;
-			pointer-events: none;
-		}
-		.menu-link.active > span {
-			text-decoration: none;
-		}
 		
 
 	menu .connect {
