@@ -6,5 +6,6 @@ export default {
             port: '25565',
             versions: ['1.21', '1.21.1']
         }
-    }
+    },
+    port: '3000'
 }
