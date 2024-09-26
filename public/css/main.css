@@ -81,6 +81,12 @@ a.active {
 	}
 }
 
+@media screen and (min-width: 1200px) {
+	html, body {
+		scrollbar-gutter: stable;
+	}
+}
+
 @media (prefers-color-scheme: dark) {
 	body {
 		background-color: #2d2a27;
