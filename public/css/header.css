@@ -26,23 +26,43 @@ menu {
 			background-color: #ff9d0077;
 			padding: 0 5px;
 		}
-	menu .online {
-		position: absolute;
-		right: 1em;
-		bottom: -2.45em;
+
+	.online {
 		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: flex-end;
-		gap: 0 0.3em;
-		line-height: 1.1;
+		justify-content: space-between;
+		margin-top: 0.5em;
 	}
-		menu .online-record {
-			opacity: 0.5;
-			flex-basis: 100%;
-			font-size: 75%;
-			text-align: right;
+		.online-plot {
+			width: calc(100% - 8.5em);
+			direction: rtl;
+			overflow: auto;
+			scrollbar-width: none;
+			position: relative;
 		}
+			.online-plot::after {
+				content: "⥃";
+				line-height: 0.3;
+				height: 100%;
+				position: absolute;
+				right: 0;
+				top: 0;
+				opacity: 0.6;
+			}
+		.online-value {
+			width: 8em;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 0 0.3em;
+			line-height: 1.1;
+			text-wrap: nowrap;
+		}
+			.online-record {
+				opacity: 0.5;
+				font-size: 75%;
+				text-align: right;
+			}
 
 	@media screen and (max-width: 800px) {
 		nav {
