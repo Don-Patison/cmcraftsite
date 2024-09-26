@@ -95,41 +95,42 @@
 		return nearestIndex
 	}
 
+	const valueStyles = {
+		position: 'absolute',
+		fontSize: '55%',
+		textAlign: 'center',
+		fontWeight: '600',
+		fontFamily: 'var(--font-accent)',
+		direction: 'ltr',
+		whiteSpace: 'nowrap',
+		padding: '0 0.25rem',
+		backdropFilter: 'blur(4px)',
+		color: 'color-mix(in srgb, currentColor, transparent 10%)',
+		borderRadius: '0.3rem',
+		boxShadow: 'var(--shadow--lighter)',
+		transform: 'translate(-50%, 0)',
+	};
+	
 	// Function to show the value at its coordinates
 	function showValueAtCoordinates(index) {
 		const valueEl = document.createElement('div')
 		const valueCoordinates = plot.coordinates[index]
-		const styles = {
-			position: 'absolute',
-			fontSize: '55%',
-			textAlign: 'center',
-			fontWeight: '600',
-			fontFamily: 'var(--font-accent)',
-			direction: 'ltr',
-			whiteSpace: 'nowrap',
-			padding: '0 0.25rem',
-			backgroundColor: valueCoordinates.value !== 0 ? '#00ca6f66' : '#ff2222aa',
-			backdropFilter: 'blur(4px)',
-			color: 'color-mix(in srgb, currentColor, transparent 10%)',
-			borderRadius: '0.3rem',
-			boxShadow: 'var(--shadow--lighter)',
-			transform: 'translate(-50%, 0)',
-		};
-
-		for (const style in styles) {
-			valueEl.style[style] = styles[style]
+		
+		for (const style in valueStyles) {
+			valueEl.style[style] = valueStyles[style]
 		}
+		valueEl.style.backgroundColor = valueCoordinates.value !== 0 ? '#00ca6f66' : '#ff2222aa',
 
 		valueEl.style.left = `calc(${valueCoordinates.x * 100}%)`
 		
 		if (valueCoordinates.y > 0.5) {
 			valueEl.style.bottom = `calc(${valueCoordinates.y * 100}% - 1.4rem - 0.25rem - 2px)`
 			valueEl.style.clipPath = 'polygon(50% 0%, 66% 25%, 100% 30%, 100% 70%, 100% 100%, 50% 100%, 0 100%, 0% 70%, 0 30%, 33% 25%)'
-			valueEl.style.paddingTop = '0.25rem'
+			valueEl.style.paddingTop = '0.33rem'
 		} else {
 			valueEl.style.bottom = `calc(${valueCoordinates.y * 100}% + 2px)`
 			valueEl.style.clipPath = 'polygon(0 0, 100% 0, 100% 70%, 66% 75%, 50% 100%, 33% 75%, 0 70%)'
-			valueEl.style.paddingBottom = '0.25rem'
+			valueEl.style.paddingBottom = '0.33rem'
 		}
 		valueEl.innerHTML = String(plot.values[index])
 
@@ -162,7 +163,7 @@
 		const wrapper = shadow.getElementById('wrapper')
 		wrapper.style.height = shadow.querySelector('svg').getAttribute('height')
 		wrapper.style.position = "relative"
-	}, 100);
+	}, 228);
 </script>
   
 
