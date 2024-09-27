@@ -71,7 +71,7 @@
 	}
 	plot.values = plot.el.getAttribute("values").split(', ').map(Number);
 
-	// Calculate coordinates for all values
+	// Расчёт отностиельных координат всех значений
 	plot.coordinates = plot.values.map((value, index) => {
 		return {
 			value,
@@ -95,6 +95,7 @@
 		return nearestIndex
 	}
 
+	// Стили указателя значения
 	const valueStyles = {
 		position: 'absolute',
 		fontSize: '55%',
@@ -111,7 +112,7 @@
 		transform: 'translate(-50%, 0)',
 	};
 	
-	// Function to show the value at its coordinates
+	// Показать значение ближайшей к курсору точки
 	function showValueAtCoordinates(index) {
 		const valueEl = document.createElement('div')
 		const valueCoordinates = plot.coordinates[index]
@@ -135,9 +136,8 @@
 		valueEl.innerHTML = String(plot.values[index])
 
 		return valueEl
-}
+	}
 
-	// Add mousemove event listener to the SVG element
 	plot.el.addEventListener('mousemove', (event) => {
 		const rect = plot.el.getBoundingClientRect()
 		const x = (event.clientX - rect.left) / rect.width
@@ -145,18 +145,15 @@
 		const shadow = plot.el.shadowRoot
 		const wrapper = shadow.getElementById('wrapper')
 
-		// Clear previous value display
 		if (wrapper.querySelector('.value-display')) {
 			wrapper.querySelector('.value-display').remove()
 		}
 
-		// Show the value at its coordinates
 		const valueEl = showValueAtCoordinates(nearestIndex)
 		valueEl.classList.add('value-display')
 		wrapper.appendChild(valueEl)
 	});
 
-	// Initial setup for the plot
 	setTimeout(() => {
 		const shadow = plot.el.shadowRoot
 		shadow.innerHTML = `<div id="wrapper">${plot.el.shadowRoot.innerHTML}</div>`
