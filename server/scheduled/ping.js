@@ -1,40 +1,50 @@
 import schedule from 'node-schedule'
 import mc from "minecraftstatuspinger"
+import db from "#lib/db"
 
 import config from '#config'
-const { domain, ip } = config.minecraft.server
+const { domain, ip, port } = config.minecraft.server
 
-schedule.scheduleJob('*/5 * * * *', async () => {
+schedule.scheduleJob('*/10 * * * *', async () => {
 
     var ping;
 
-    const savePing = (p) => {
+    const savePing = async (p) => {
         if (p) {
-            const { online, max } = p.status.players
-            console.log(`${online}/${max}`)
-            // db: push "up", online, max
+            const { online: players, max } = p.status.players
+            console.log(`${players}/${max}`)
+            await db.query(`
+                INSERT INTO online (players, max, status) 
+                VALUES (:players, :max, "up")
+            `, { players, max })
         } else {
             console.log('Ping failed')
-            // db: push "down", null, null
+            await db.query(`
+                INSERT INTO online (players, max, status) 
+                VALUES (NULL, NULL, "down")
+            `)
         }
     }
 
     try {
-
+        
+        console.log(`Pinging ${domain}:${port}...`)
         ping = await mc.lookup({ host: domain, ping: false })
 
     } catch (error) {
         
-        console.error("Error: cannot ping cmcraft.su\n", error.message)
-        console.log(`Trying ${ip}:25565...`)
+        console.error(`Cannot ping ${domain}:${port}`)
+        console.error(error.message)
+        console.log(`Trying ${ip}:${port}...`)
 
         try {
             ping = await mc.lookup({ host: ip, ping: false })
         } catch (error) {
-            console.error(`Error: cannot ping ${ip}:25565. Is server down?\n`, error.message)
+            console.error(`Cannot ping ${ip}:${port}. Is server down?`)
+            console.error(error.message)
         }
 
     }
 
-    savePing(ping)
+    await savePing(ping)
 })
