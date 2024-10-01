@@ -4,18 +4,18 @@
     <menu class = "container">
 
 		<% const links = [
-			{ href: '/', text: 'Главная' },
-			{ href: '/fuck', text: 'FAQ' },
-			{ href: '/rules', text: 'Правила' }
+			{ href: '', text: 'Главная' },
+			{ href: 'fuck', text: 'FAQ' },
+			{ href: 'rules', text: 'Правила' }
 		]; %>
 	  
 		<% links.forEach(link => { %>
 			<a 
-				href="<%= link.href %>" 
+				href="/<%= link.href %>" 
 				class="
 					menu-link 
 					<%= 
-						(req.baseUrl === link.href || (req.baseUrl === '' && link.href === '/')) ? 'active' : '' 
+						(req.fullPath.some(p => p === link.href) || link.href === '' && req.fullPath.length === 0) ? 'active' : '' 
 					%>"
 				>
 			<span><%= link.text %></span>
