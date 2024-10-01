@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+	<%- include('../layout/head'); -%>
+</head>
+<body>
+
+	<%- include('../layout/header'); -%>
+
+	<main>
+
+		<% 
+		const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+		const jokes = {
+			text: [
+				'<bobr></bobr>',
+				'🦫',
+				'🐊',
+				'Ave Vandon',
+				'🤡',
+				'%D1%85%D1%83%D0%B9',
+				'ඞ',
+				'𓀐',
+				'☠️',
+				'🤫🧏',
+				'ААА!!!!',
+				'Командный блок'
+			],
+			images: [
+				// При добавлении картинок в /img/quotes добавить их сюда вручную.
+				// Может потом напишу скрипт...
+				...Array.from(Array(21).keys()).map(k => `/img/quotes/${++k}.webp`) 
+			]
+		}
+		const joke = { 
+			text: jokes.text[random(0, jokes.text.length-1)],
+			image: jokes.images[random(0, jokes.images.length-1)],
+			show: (Math.random() > 0.7) ? 'text' : 'image'
+		}
+		%>
+
+		<section class = "container not-found">
+
+			<center style = "font-family: var(--font-accent);">
+
+				<h1>404</h1>
+
+				<p>По адресу <b>/<%= req.fullPath.join('/') %></b> ничего нет.</p>
+
+				<br>
+				<div style = "width: 320px">
+					<% if (joke.show === 'text') { %>
+						<p style = "font-size: <%= `clamp(0.7em, calc(11cqw - ${Math.round((joke.text.length)*75)/100}em), 4em)` %>">
+							<%= joke.text %>
+						</p
+					<% } else { %>
+						<img style = "max-width: 100%; width: min-content; height: auto;" src = "<%= joke.image %>">
+					<% } %>
+				</div>
+
+			</center>
+
+		</section>
+
+	</main>
+
+	<%- include('../layout/footer'); -%>
+	
+</body>
+</html>

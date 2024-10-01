@@ -23,6 +23,11 @@ for (const [path, route] of Object.entries(routes)) {
 // Устанавливаем статическую папку
 cmc.use(express.static('public'));
 
+// 404
+cmc.use((req, res) => {
+	res.status(404).render('pages/not-found', { req })
+});
+
 // Запускаем сервер
 cmc.listen(port, () => {
 	console.log(`Сайт запущен на порту :${port}`);
