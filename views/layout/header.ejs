@@ -157,6 +157,7 @@
 	setTimeout(() => {
 		const shadow = plot.el.shadowRoot
 		shadow.innerHTML = `<div id="wrapper">${plot.el.shadowRoot.innerHTML}</div>`
+		shadow.querySelector('title').innerHTML = 'График онлайна'
 		const wrapper = shadow.getElementById('wrapper')
 		wrapper.style.height = shadow.querySelector('svg').getAttribute('height')
 		wrapper.style.position = "relative"
