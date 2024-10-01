@@ -11,6 +11,7 @@
 		"express": "^4.21.0",
 		"markdown-it": "^14.1.0",
 		"minecraftstatuspinger": "^1.1.5",
+		"mysql2": "^3.11.3",
 		"node-schedule": "^2.1.1",
 		"nodemon": "^3.1.4"
 	},
