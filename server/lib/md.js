@@ -5,6 +5,10 @@ const md = {
         html: true,
         typographer: true,
     }),
+    read: markdownit({
+        html: true,
+        typographer: true
+    })
 }
 
 export default md

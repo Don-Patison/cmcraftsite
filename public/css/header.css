@@ -14,6 +14,15 @@ menu {
 		padding-top: 1em;
 		font-family: var(--font-accent);
 	}
+	.secondary-links {
+		font-size: 45%;
+		display: grid;
+		grid-template-columns: auto auto;
+		gap: 0 1em;
+	}
+		.secondary-links .active {
+			font-weight: 800;
+		}
 		
 
 	menu .connect {
@@ -64,13 +73,29 @@ menu {
 				text-align: right;
 			}
 
-	@media screen and (max-width: 800px) {
+	@media screen and (max-width: 950px) {
 		nav {
 			margin-bottom: 2.5em;
 		}
 		menu {
 			justify-content: space-between;
+			overflow-x: auto;
+			scrollbar-width: thin;
 		}
+			.secondary-links {
+				font-size: 100%;
+				display: flex;
+				justify-content: space-between;
+				gap: 2em;
+			}
+				.secondary-links a {
+					font-weight: 550;
+					padding-top: 1em;
+					font-family: var(--font-accent);
+				}
+					.secondary-links .active {
+						font-weight: 550;
+					}
 			menu .connect {
 				position: fixed;
 				bottom: 0;

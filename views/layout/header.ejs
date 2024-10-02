@@ -3,24 +3,44 @@
 <nav>
     <menu class = "container">
 
-		<% const links = [
-			{ href: '', text: 'Главная' },
-			{ href: 'fuck', text: 'FAQ' },
-			{ href: 'rules', text: 'Правила' }
-		]; %>
+		<% const links = {
+			primary: [
+				{ href: '', text: 'Главная' },
+				{ href: 'read/fuck', text: 'FAQ' },
+				{ href: 'rules', text: 'Правила' }
+			],
+			secondary: [
+				{ href: 'read/history', text: 'История' },
+				{ href: 'read/contacts', text: 'Контакты' },
+				{ href: 'read/gallery', text: 'Галерея' },
+			]
+		}; %>
 	  
-		<% links.forEach(link => { %>
+		<% links.primary.forEach(link => { %>
 			<a 
 				href="/<%= link.href %>" 
 				class="
 					menu-link 
 					<%= 
-						(req.fullPath.some(p => p === link.href) || link.href === '' && req.fullPath.length === 0) ? 'active' : '' 
+						(req.fullPath.some(p => p === link.href.split('/').at(-1)) || link.href === '' && req.fullPath.length === 0) ? 'active' : '' 
+				%>"
+			>
+				<%= link.text %>
+			</a>
+		<% }); %>	
+		
+		<div class = "secondary-links">
+			<% links.secondary.forEach(link => { %>
+				<a 
+					href="/<%= link.href %>" 
+					class="<%= 
+						(req.fullPath.some(p => p === link.href.split('/').at(-1)) || link.href === '' && req.fullPath.length === 0) ? 'active' : '' 
 					%>"
 				>
-			<span><%= link.text %></span>
-			</a>
-		<% }); %>
+					<%= link.text %>
+				</a>
+			<% }); %>
+		</div>
 
 		
         <div class = "connect">
@@ -206,4 +226,11 @@ const mouseUpHandler = function () {
 };
 
 plot.container.addEventListener('mousedown', mouseDownHandler);
+</script>
+
+<script>
+	// Прокрутка к выбранной странице в меню, актуально на мобиле
+	const menu = document.querySelector('menu')
+	const active = document.querySelector('menu a.active')
+	menu.scrollLeft = active.offsetLeft + active.clientWidth/2 - menu.offsetWidth/2
 </script>
