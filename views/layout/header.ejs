@@ -2,7 +2,6 @@
 
 <nav>
     <menu class = "container">
-
 		<% const links = {
 			primary: [
 				{ href: '', text: 'Главная' },
@@ -14,6 +13,12 @@
 				{ href: 'read/contacts', text: 'Контакты' },
 				{ href: 'read/gallery', text: 'Галерея' },
 			]
+		}; %>
+
+		<% const statusMessages = {
+			up: 'Сервер работает',
+			down: 'Сервер пока что выключен',
+			unknown: 'Состояние сервера неизвестно'
 		}; %>
 	  
 		<% links.primary.forEach(link => { %>
@@ -54,13 +59,13 @@
 		<div class = "online-plot">
 			<!-- width="1152" -->
 			<svg-sparkline
-				values="30, 5, 9, 14, 17, 30, 30, 19, 7, 6, 4, 9, 12, 16, 26, 27, 28, 8, 3, 5, 7, 13, 21, 25, 28, 19, 9, 4, 6, 9, 14, 17, 25, 24, 19, 12, 5, 6, 7, 12, 20, 32, 21, 19, 7, 2, 4, 5, 14, 19" 
+				values="<%- locals.online.values %>" 
 				curve="true" 
 				color="#00ca6f"
 				line-width="3"
 				endpoint="false"
-				width = "1152"
-				height="45"
+				width = "<%- 38 * locals.online.values.length %>"
+				height="55"
 				gradient="true" 
 				gradient-color="color-mix(in srgb, #00ca6f, transparent 85%)"
 			>
@@ -70,13 +75,20 @@
 		</div>
 		
 		<div class = "online-value">
-			<div class = "status status-up"></div>
-			18/200 онлайн
+			<div 
+				class = "status status-<%- locals.online.status %>"
+				title = "<%- statusMessages[locals.online.status]%>"
+			></div>
+			<%- locals.online.current %>/<%- locals.online.max %> онлайн
 			<small 
 				class = "online-record"
-				title = "Установлен 26 июня 2024"
+				title = "Установлен <%- new Intl.DateTimeFormat("ru-RU", {
+					day: 'numeric',
+					month: 'long',
+					year: 'numeric',
+				}).format(locals.online.record.date).replace('г.', '')%>"
 			>
-				Рекорд — 168
+				Рекорд — <%- locals.online.record.players %>
 			</small>
 		</div>
 
@@ -89,7 +101,7 @@
 		el: document.querySelector('svg-sparkline'),
 		container: document.querySelector('.online-plot'),
 	}
-	plot.values = plot.el.getAttribute("values").split(', ').map(Number);
+	plot.values = plot.el.getAttribute("values").replace(' ', '').split(',').map(Number);
 
 	// Расчёт отностиельных координат всех значений
 	plot.coordinates = plot.values.map((value, index) => {
