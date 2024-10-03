@@ -15,10 +15,8 @@ cmc.use((req, res, next) => {
 cmc.set('view engine', 'ejs');
 
 // Устанавливаем роутер
-import routes from '#server/routes/_router'
-for (const [path, route] of Object.entries(routes)) {
-	cmc.use(path, route)
-}
+import { router } from '#server/routes/_router'
+cmc.use(router)
 
 // Устанавливаем статическую папку
 cmc.use(express.static('public'));
