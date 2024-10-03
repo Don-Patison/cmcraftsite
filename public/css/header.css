@@ -71,6 +71,7 @@ menu {
 				opacity: 0.5;
 				font-size: 75%;
 				text-align: right;
+				align-self: flex-start;
 			}
 
 	@media screen and (max-width: 950px) {
