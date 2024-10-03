@@ -4,15 +4,11 @@ const cmc = express()
 import config from '#config'
 const { port } = config
 
-// Инъектим полный путь
-cmc.use((req, res, next) => {
-	const path = req.baseUrl + req.path
-	req.fullPath = path.split('/').filter(s => s)
-	next()
-})
-
 // Устанавливаем шаблонизатор. Папка /views выбирается автоматически.
 cmc.set('view engine', 'ejs');
+
+import fullPath from '#middleware/full-path'
+cmc.use(fullPath)
 
 // Устанавливаем роутер
 import { router } from '#server/routes/_router'

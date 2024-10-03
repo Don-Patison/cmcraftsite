@@ -20,6 +20,7 @@
 		"#server/*": "./server/*.js",
 		"#public/*": "./public/*",
 		"#lib/*": "./server/lib/*.js",
+		"#middleware/*": "./server/middleware/*.js",
 		"#config": "./config.js"
 	}
 }
