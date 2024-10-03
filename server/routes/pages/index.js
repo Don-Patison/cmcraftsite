@@ -1,8 +1,8 @@
 import { Router } from 'express';
-const router = Router();
+const index = Router();
 
-router.get('/', (req, res) => {
+index.get('/', (req, res) => {
 	res.render('pages/index', { req });
 })
 
-export default router
+export default index

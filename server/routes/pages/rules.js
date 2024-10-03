@@ -1,27 +1,27 @@
 import { Router } from 'express'
-const router = Router('/rules')
+const rules = Router()
 
 import fs from 'fs'
 import md from "#lib/md"
 
-import rules from "#public/rules/rules.json" assert {type: 'json'}
+import categories from "#public/rules/rules.json" assert {type: 'json'}
 
 const html = { }
 
-for (const rule of rules) {
-	html[rule.url] = md.rules.render(fs.readFileSync(`public/rules/${rule.url}.md`, 'utf8'))
+for (const category of categories) {
+	html[category.url] = md.rules.render(fs.readFileSync(`public/rules/${category.url}.md`, 'utf8'))
 }
 
-router.get('/:url?', (req, res) => {
+rules.get('/:url?', (req, res) => {
 	
 	const url = req.params.url || 'general'
 	
 	res.render('pages/rules', {
 		req,
-		categories: rules,
+		categories,
 		text: html[url]
 	})
 
 })
 
-export default router;
+export default rules;

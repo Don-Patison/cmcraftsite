@@ -1,12 +1,12 @@
 import { Router } from 'express'
-const router = Router('/rules')
+const read = Router()
 
 import fs from 'fs'
 import md from "#lib/md"
 
 const html = { }
 
-router.get('/:url', (req, res) => {
+read.get('/:url', (req, res) => {
 
     fs.readdirSync('public/read').forEach(file => {
         const page = file.replace('.md', '');
@@ -22,4 +22,4 @@ router.get('/:url', (req, res) => {
 
 })
 
-export default router
+export default read
