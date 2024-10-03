@@ -91,13 +91,13 @@ h5 {
 p, ol, ul {
 	margin-bottom: 1rem;
 }
-p:not(li p):not(.rule p) {
+.indent p:not(li p):not(.rule p) {
 	text-indent: 2rem;
 }
-	p > img {
+	.indent p > img {
 		margin-left: -2rem;
 	}
-ol, li {
+ol, ul {
 	margin-left: 2rem;
 }
 hr {
