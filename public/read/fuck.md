@@ -1,4 +1,16 @@
-<style>.read h2 { font-size: 1.33em; margin-bottom: 0;}</style>
+<style>
+.fuck h2 { 
+    font-size: 1.33em; margin-bottom: 0.2em;
+} 
+.fuck h3 { 
+    font-size: 1em; margin-bottom: 0.2em;
+}
+@media screen and (max-width: 1120px) {
+    .fuck p {
+        font-size: 70%;
+    }
+}
+</style>
 
 # Частые вопросы
 

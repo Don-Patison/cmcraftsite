@@ -26,12 +26,6 @@ body {
 	color: #070400;
 }
 
-h1, h2, h3, h4, h5, h6,
-.title {
-	font-family: var(--font-accent);
-	font-weight: 720;
-}
-
 strong, b {
 	font-weight: 700;
 }
@@ -67,7 +61,11 @@ a.active {
 	pointer-events: none;
 }
 
-h1,  h2,  h3,  h4,  h5,  h6 {
+h1, h2, h3, h4, h5, h6,
+.title {
+	font-family: var(--font-accent);
+	font-weight: 720;
+	line-height: 1;
 	margin-top: 2rem;
 	margin-bottom: 1rem;
 }
