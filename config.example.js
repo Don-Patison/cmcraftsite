@@ -6,7 +6,8 @@ export default {
             ip: '94.26.229.202',
             port: '25565',
             versions: ['1.21', '1.21.1']
-        }
+        },
+        hotmc: 'https://hotmc.ru/minecraft-server-235548'
     },
     database: {
         host: 'localhost',
