@@ -7,8 +7,11 @@ const { port } = config
 // Устанавливаем шаблонизатор. Папка /views выбирается автоматически.
 cmc.set('view engine', 'ejs');
 
+// Применяем middleware (TODO: сканировать папку)
 import fullPath from '#middleware/full-path'
+import seo from '#middleware/seo'
 cmc.use(fullPath)
+cmc.use(seo)
 
 // Устанавливаем роутер
 import { router } from '#server/routes/_router'
