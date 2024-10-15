@@ -1,6 +1,6 @@
 <style>
 .fuck h2 { 
-    font-size: 1.33em; margin-bottom: 0.2em;
+    font-size: 1.05em; margin-bottom: 0.2em;
 } 
 .fuck h3 { 
     font-size: 1em; margin-bottom: 0.2em;

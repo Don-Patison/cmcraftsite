@@ -122,6 +122,13 @@ img {
 	}
 }
 
+@media screen and (max-width: 650px) {
+	.container {
+		padding-left: 0.8em;
+		padding-right: 0.8em;
+	}
+}
+
 @media screen and (min-width: 1200px) {
 	html, body {
 		scrollbar-gutter: stable;

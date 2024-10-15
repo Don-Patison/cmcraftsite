@@ -76,18 +76,19 @@ menu {
 
 	@media screen and (max-width: 950px) {
 		nav {
-			margin-bottom: 2.5em;
+			margin-bottom: 1em;
 		}
 		menu {
 			justify-content: space-between;
 			overflow-x: auto;
 			scrollbar-width: thin;
+			gap: 1.5em;
 		}
 			.secondary-links {
 				font-size: 100%;
 				display: flex;
 				justify-content: space-between;
-				gap: 2em;
+				gap: 1.5em;
 			}
 				.secondary-links a {
 					font-weight: 550;
@@ -118,12 +119,17 @@ menu {
 					padding: 0;
 					font-weight: 800;
 				}
-			menu .online {
-				font-size: 75%;
-				right: 1.4em;
+			.online {
+				font-size: 85%;
 			}
 		body {
 			margin-bottom: 2em;
+		}
+	}
+
+	@media screen and (max-width: 650px) {
+		.online {
+			padding-left: 0;
 		}
 	}
 
