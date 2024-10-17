@@ -10,8 +10,10 @@ cmc.set('view engine', 'ejs');
 // Применяем middleware (TODO: сканировать папку)
 import fullPath from '#middleware/full-path'
 import seo from '#middleware/seo'
+import minecraft from '#middleware/minecraft'
 cmc.use(fullPath)
 cmc.use(seo)
+cmc.use(minecraft)
 
 // Устанавливаем роутер
 import { router } from '#server/routes/_router'
