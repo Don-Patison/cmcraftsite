@@ -11,4 +11,4 @@
 **Ресурсы, связанные проектом:**
 
 - [Группа ВК](https://vk.com/roleplay_vanilla)
-- [Дискорд-сервер](https://discord.gg/ypWGvp5N)
+- [Дискорд-сервер](https://discord.com/invite/MPfPsXabjK)
