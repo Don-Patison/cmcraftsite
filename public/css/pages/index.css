@@ -16,6 +16,7 @@
 	display: flex;
 	align-items: center;
 	padding-left: 3em;
+	margin-bottom: 2em;
 	image-rendering: pixelated;
 	image-rendering: crisp-edges;
 }
@@ -62,7 +63,6 @@
 		"main  secondary   secondary "
 		"main  tertiary-1  tertiary-2";
 	height: auto;
-	margin-top: 3em;
 	margin-bottom: 4em;
 	padding-left: 0;
 	padding-right: 0;
@@ -158,9 +158,6 @@
 		padding-left: 0.8em;
 		padding-right: 0.8em;
 		background-position: calc(100% - 0.8em), 100%;
-	}
-	.info {
-		margin-top: 2em;
 	}
 }
 
