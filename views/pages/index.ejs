@@ -28,6 +28,93 @@
 				</nobr>
 			</div>
 
+			<div class = "banner-season">
+				<% 
+					const start = locals.minecraft.season.start 
+					const now = new Date()
+
+					const dateFormat = {
+						month: 'long', 
+						day: 'numeric',
+					}
+					if (now.getFullYear() > start.getFullYear()) {
+						dateFormat.year === 'long'
+					}
+					
+					const formattedStart = new Intl.DateTimeFormat('ru-RU', dateFormat).format(start)
+				%>
+
+				<!-- Текущий сезон -->
+				<% if (start.getTime() < now.getTime() && locals.minecraft.season.number % 1 === 0) { %>
+					<% if (start.getDate() === 2) { %>
+						Со
+					<% } else { %>
+						С
+					<% } %>
+					<%- formattedStart %> 
+					идёт <b><%- locals.minecraft.season.number %></b> сезон
+
+				<!-- Межсезонье -->
+				<% } else if (locals.minecraft.season.number % 1 !== 0) { %>
+					<b><%- Math.floor(locals.minecraft.season.number) %></b> сезон — всё, идёт межсезонье		
+				
+				<!-- Анонс -->
+				<% } else if (start.getTime() > now.getTime()) { %>
+					<b><%- locals.minecraft.season.number %></b> сезон начнётся <b><%- formattedStart %></b>
+				<% } %>
+
+			</div>
+
+		</section>
+
+		<section class = "container info">
+
+			<div class="info-block main">
+				<h2>Полная ванилла</h2>
+				<p>
+					На нашем проекте отсутствуют любые неванильные механики, в том числе и приваты.
+					Тем не менее, гриферство у нас запрещено.
+				</p>
+				<p>
+					Всё основано исключительно на самоорганизации игроков, 
+					соблюдении простых <a href = "/rules">правил</a> и взаимном доверии. При этом, если
+					у вас возникнет конфликт или ваши права нарушат, вы всегда можете
+					обратиться к любому администратору.
+				</p>
+				<p>
+					С каждой новой крупной версией майнкрафта (примерно каждый год) у нас проводится вайп.
+					Как правило, вайп длится пару недель, и в это время проходит «межсезонье» — временно
+					создаётся необычный мир, где немного меняются правила и механики.
+				</p>
+			</div>
+
+			<div class="info-block secondary">
+				<h2>Как начать играть?</h2>
+				<p>
+					Нужно заполнить <a href>короткую анкету.</a> В течение 1-2 дней
+					её проверят и, скорее всего, одобрят. Для посторонних сервер закрыт — это 
+					нужно для того, чтобы отсеять гриферов и ботов.
+				</p>
+				<p>
+					Также стоит вступить в наш <a href = "https://discord.com/invite/MPfPsXabjK">дискорд,</a>
+					где мы общаемся, выкладываем новости и оповещаем об ивентах.
+				</p>
+			</div>
+
+			<div class="info-block tertiary-1">
+				<div style = "font-size: 6em; line-height: 1;">
+					150
+				</div>
+				<p>анкет каждый месяц</p>
+			</div>
+
+			<div class="info-block tertiary-2">
+				<div style = "font-size: 6em; line-height: 1;">
+					34
+				</div>
+				<p>клана на сервере</p>
+			</div>
+
 		</section>
 
 	</main>
