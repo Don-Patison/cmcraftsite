@@ -146,6 +146,8 @@
 	
 	// Показать значение ближайшей к курсору точки
 	function showValueAtCoordinates(index) {
+		if (index === plot.coordinates.length-1 || index === 0) return;
+
 		const valueEl = document.createElement('div')
 		const valueCoordinates = plot.coordinates[index]
 		
