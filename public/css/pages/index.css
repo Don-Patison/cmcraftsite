@@ -90,7 +90,6 @@
 		.info-block.secondary { 
 			grid-area: secondary;
 			border-top-right-radius: 1em;
-			font-size: 2cqw;
 			background-image: radial-gradient(
 				circle at 50% 90%,
 				#ff9d0040 5%,
