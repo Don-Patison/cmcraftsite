@@ -75,7 +75,7 @@
 		background-size: cover;
 		background-repeat: no-repeat;
 		box-shadow: 0 1px 20px 0 rgba(65, 34, 0, 0.05);
-		font-size: 2cqw;
+		font-size: 2.3cqw;
 	}
 		.info-block.main { 
 			grid-area: main;
@@ -158,6 +158,9 @@
 		padding-left: 0.8em;
 		padding-right: 0.8em;
 		background-position: calc(100% - 0.8em), 100%;
+	}
+	.info {
+		gap: 0.2em;
 	}
 }
 
