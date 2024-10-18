@@ -98,7 +98,6 @@
 		}
 		.info-block.tertiary-1 { 
 			grid-area: tertiary-1; 
-			aspect-ratio: 1/1;
 			background-image: radial-gradient(
 				circle at 90% 10%,
 				#ff9d0040 5%,
@@ -107,7 +106,6 @@
 		}
 		.info-block.tertiary-2 { 
 			grid-area: tertiary-2; 
-			aspect-ratio: 1/1;
 			background-image: radial-gradient(
 				circle at 10% 10%,
 				#ff9d0040 5%,
@@ -123,6 +121,8 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
+			aspect-ratio: 1/1;
+			font-size: 2cqw;
 		}
 		.info-block h2 {
 			margin-top: 0;
