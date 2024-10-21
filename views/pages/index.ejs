@@ -46,7 +46,7 @@
 				%>
 
 				<!-- Текущий сезон -->
-				<% if (start.getTime() < now.getTime() && locals.minecraft.season.number % 1 === 0) { %>
+				<% if (start < now && locals.minecraft.season.number % 1 === 0) { %>
 					<% if (start.getDate() === 2) { %>
 						Со
 					<% } else { %>
@@ -60,7 +60,7 @@
 					<b><%- Math.floor(locals.minecraft.season.number) %></b> сезон — всё. Идёт межсезонье.		
 				
 				<!-- Анонс -->
-				<% } else if (start.getTime() > now.getTime()) { %>
+				<% } else if (start > now) { %>
 					<b><%- locals.minecraft.season.number %></b> сезон начнётся <b><%- formattedStart %></b>
 				<% } %>
 
