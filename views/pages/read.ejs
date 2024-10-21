@@ -5,12 +5,9 @@
 	<% 
 		let title = text.match(/<h1>(.*?)<\/h1>/g)
 		title &&= title[0].replaceAll(/<.*?>/g, '')
-
-		let description = text.match(/<p>(.*?)<\/p>/g)
-		description &&= description[0].replaceAll(/<.*?>/g, '')
 	%>
 	<title><%- title ? `${title} @ ${locals.SEO.title}` : locals.SEO.title %></title>
-	<meta name = "description" content = "<%- description?.length > 25 ? description : locals.SEO.description %>">
+	<meta name = "description" content = "<%- locals.SEO.description %>">
 </head>
 <body>
 
