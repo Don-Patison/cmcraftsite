@@ -110,6 +110,16 @@ img {
 	width: min-content; 
 	height: auto;
 }
+.code {
+	font-family: monospace;
+	font-weight: 500;
+	padding: 0.05em 0.25em;
+	font-size: 110%;
+	background-color: #8882;
+	border-radius: 0.4em;
+	outline: 1px solid color-mix(in srgb, currentColor, transparent 85%);
+	white-space: nowrap;
+}
 
 /* Layout */
 .container {
