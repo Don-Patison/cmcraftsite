@@ -1,6 +1,7 @@
 export default {
     // Порт веб-сервера
     port: '3000',
+    // Всё внутри minecraft прокидывается в /read
     minecraft: {
         // Параметры майнкрафт-сервера
         server: {
