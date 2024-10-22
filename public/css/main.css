@@ -110,7 +110,7 @@ img {
 	width: min-content; 
 	height: auto;
 }
-.code {
+code {
 	font-family: monospace;
 	font-weight: 500;
 	padding: 0.05em 0.25em;
