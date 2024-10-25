@@ -1,6 +1,9 @@
 import express from 'express'
 const cmc = express()
 
+import compression from 'express-compression'
+cmc.use(compression())
+
 import config from '#config'
 const { port } = config
 
