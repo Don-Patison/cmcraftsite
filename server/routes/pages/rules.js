@@ -4,7 +4,7 @@ const rules = Router()
 import fs from 'fs'
 import md from "#lib/md"
 
-import categories from "#public/rules/rules.json" assert {type: 'json'}
+import categories from "#public/rules/rules.json"  with { type: "json" }
 
 const html = { }
 
