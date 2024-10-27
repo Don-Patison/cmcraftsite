@@ -9,7 +9,7 @@
 				{ href: 'rules', text: 'Правила' }
 			],
 			secondary: [
-				{ href: 'read/history', text: 'История' },
+				{ href: 'history', text: 'История' },
 				{ href: 'read/contacts', text: 'Контакты' },
 				{ href: 'read/gallery', text: 'Галерея' },
 			]
@@ -57,7 +57,7 @@
 	<% if (locals.online) { %>
 	<div class = "container online">
 		 
-		<div class = "online-plot">
+		<div class = "online-plot" style = "height: 64px">
 			<!-- width="1152" -->
 			<svg-sparkline
 				values="<%- locals.online.values %>" 

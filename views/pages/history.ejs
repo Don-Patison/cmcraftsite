@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+	<%- include('../layout/head'); -%>
+	<title>История @ <%- locals.SEO.title %></title>
+	<meta name = "description" content = "Все события сервера: вайпы, войны, ивенты, технические изменения и так далее.">
+
+	<link rel = "stylesheet" href = "/css/pages/history.css">
+</head>
+<body>
+
+	<%- include('../layout/header'); -%>
+	
+	<%
+		const start = locals.days[0].date
+		const end = locals.days.at(-1).date
+		const duration = {
+			days: Math.floor((end - start) / 1000 / 60 / 60 / 24),
+		}
+		const format = (date) => new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(date).replace('г.', '')
+
+		const types = {
+			war: '⚔️',
+			main: '⭐'
+		}
+	%>
+
+	<main class = "container timeline-container">
+
+		<h1>Хронология сервера</h1>
+
+		<section class = "timeline">
+
+			<div 
+				class = "line" 
+				style = "height: <%- duration.days*53 %>px"
+			></div>
+
+			<% for (const day of locals.days) { %>
+
+				<div 
+					class = "day"
+					style = "top: <%- 100 - ((day.date - start) / (end - start)) * 100 %>%"
+				>
+
+					<div class = "day-position">
+						<div class = "day-marker"></div>
+					</div>
+
+					<div class = "day-events">
+
+						<div class = "day-date">
+							<%- format(day.date) %>
+						</div>
+
+						<% for (const event of day.events) { %>
+							<div class = "event">
+
+								<h2 class = "event-title">
+									<% if (event.link || event.wiki) { %>
+										<a href = "<%- event.link || event.wiki %>" target="_blank">
+											<%- event.title %>
+										</a>
+									<% } else { %>
+										<%- event.title %>
+									<% } %>
+								</h2>
+
+								<% if (event.description) { %>
+									<p class = "event-description">
+										<%- event.description %>
+									</p>
+								<% } %>
+								
+							</div>
+						<% } %>
+						
+					</div>
+
+					<div class = "day-types">
+						<% for (const type of day.events.map(e => e.type).filter(t => t)) { %>
+							<div class = "day-type">
+								<%- types[type]%>
+							</div>
+						<% } %>
+					</div>
+
+				</div>
+					
+			<% } %>
+			
+		</section>
+
+	</main>
+
+	<script>
+		document.querySelectorAll('.day').forEach(day => {
+			day.style.top = `calc(${day.style.top} - ${day.clientHeight/2}px)`
+		})
+	</script>
+
+	<%- include('../layout/footer'); -%>
+	
+</body>
+</html>

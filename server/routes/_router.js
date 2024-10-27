@@ -4,12 +4,14 @@ const router = Router()
 // Импорт всех обработчиков
 import index from './pages/index.js'
 import rules from './pages/rules.js'
+import history from './pages/history.js'
 import read from './pages/read.js'
 
 // Пути обработчиков
 const routes = {
 	'': index,
 	'rules': rules,
+	'history': history,
 	'read': read
 }
 
