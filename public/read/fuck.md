@@ -1,6 +1,8 @@
 <style>
 .fuck h2 { 
-    font-size: 1em; margin-bottom: 0.2em;
+    font-size: 1em; 
+	margin-bottom: 0.2em;
+	font-family: var(--font);
 } 
 .fuck p {
     text-indent: 0 !important;
