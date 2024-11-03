@@ -4,9 +4,6 @@ const cmc = express()
 import compression from 'express-compression'
 cmc.use(compression())
 
-import apicache from 'apicache'
-const cache = apicache.middleware
-cmc.use('*', cache('10 minutes'))
 
 import config from '#config'
 const { port } = config
@@ -27,7 +24,9 @@ import { router } from '#server/routes/_router'
 cmc.use(router)
 
 // Устанавливаем статическую папку
-cmc.use(express.static('public'), cache('48 hours'));
+import apicache from 'apicache'
+const cache = apicache.middleware
+cmc.use(express.static('public'), cache('3 hours'));
 
 // 404
 cmc.use((req, res) => {
