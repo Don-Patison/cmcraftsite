@@ -82,10 +82,7 @@ const getOnline = async (req, res, next) => {
 }
 
 // Привязываем обработчики к путям
-import apicache from 'apicache'
-const cache = apicache.middleware
 for (const [path, route] of Object.entries(routes)) {
-	route.use(cache('10 minutes'))
 	router.use('/'+path, getOnline, route)
 }
 
