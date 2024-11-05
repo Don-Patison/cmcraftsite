@@ -27,6 +27,9 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+	background-image: linear-gradient(to right, rgba(255,255,255, 0.85) 0 100%), url('/img/clouds.png');
+	background-repeat: no-repeat;
+	background-position: center calc(100% - 7em);
 }
 
 strong, b {
@@ -37,7 +40,7 @@ a,
 a u {
 	color: #0060a0;
 	text-decoration: underline;
-	text-decoration-thickness: 1px;
+	text-decoration-thickness: 0.05em;
 	text-underline-offset: .175em;
 	text-decoration-color: color-mix(in srgb, currentColor, transparent 80%);
 	text-decoration-skip: none;
@@ -129,6 +132,12 @@ code {
 	padding-right: 1em;
 }
 
+@media screen and (max-width: 1536px) {
+	body {
+		background-size: 120%;
+	}
+}
+
 @media screen and (max-width: 1100px) {
 	.container {
 		width: 100%;
@@ -152,6 +161,7 @@ code {
 	body {
 		background-color: #2d2a27;
 		color: #f5f4f2;
+		background-image: linear-gradient(to right, #2d2a27f9 0 100%),url('/img/clouds.png');
 	}
 	a, 
 	a u {
