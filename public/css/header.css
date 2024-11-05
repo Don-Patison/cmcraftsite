@@ -139,6 +139,7 @@ menu {
 	width: 0.33em;
 	height: 0.33em;
 	border-radius: 50%;
+	animation: 2s blink infinite step-end;
 }
 	.status-up {
 		background-color: #00ca6f;
@@ -157,5 +158,11 @@ menu {
 			backdrop-filter: blur(12px);
 			border: none;
 		}
+	}
+}
+
+@keyframes blink {
+	90% {
+		opacity: 0.5;
 	}
 }
