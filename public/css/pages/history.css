@@ -121,3 +121,14 @@
 			opacity: 0.8;
 		}
 }
+
+@media screen and (max-width: 400px) {
+	.event-title {
+		font-size: 90%;
+	}
+}
+@media screen and (max-width: 350px) {
+	.event-title {
+		font-size: 90%;
+	}
+}
