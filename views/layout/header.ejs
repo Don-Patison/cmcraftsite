@@ -81,6 +81,11 @@
 				title = "<%- statusMessages[locals.online.status]%>"
 			></div>
 			<%- locals.online.current %>/<%- locals.online.max %> онлайн
+			<% if (locals.online.status !== 'up') { %>
+				<small class = "online-record">
+					Идут техработы
+				</small>
+			<% } %>
 			<small 
 				class = "online-record"
 				title = "Установлен <%- new Intl.DateTimeFormat("ru-RU", {
