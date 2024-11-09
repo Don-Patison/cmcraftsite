@@ -20,7 +20,7 @@ export default {
         // Мониторинг (для получения аптайма)
         hotmc: 'https://hotmc.ru/minecraft-server-235548'
     },
-    // Данные для подключения к MySQL (нужно создать БД вручную)
+    // Данные для подключения к MySQL (саму БД нужно создать вручную)
     database: {
         host: 'localhost',
         database: 'cmc',
