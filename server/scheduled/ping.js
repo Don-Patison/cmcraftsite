@@ -4,47 +4,62 @@ import db from "#lib/db"
 
 import config from '#config'
 const { domain, ip, port } = config.minecraft.server
+const remote = config.remote
+import fs from "fs"
 
 schedule.scheduleJob('*/10 * * * *', async () => {
 
     var ping;
 
-    const savePing = async (p) => {
-        if (p) {
-            const { online: players, max } = p.status.players
-            console.log(`${players}/${max}`)
+    const savePing = async ({ players, max }) => {
+        if (players >= 0) {
             await db.query(`
                 INSERT INTO online (players, max, status) 
                 VALUES (:players, :max, "up")
             `, { players, max })
         } else {
-            console.log('Ping failed')
             await db.query(`
                 INSERT INTO online (players, max, status) 
                 VALUES (NULL, NULL, "down")
             `)
         }
     }
+	
+	if (remote) {
+		try {
+			
+			console.log(`Pinging ${domain}:${port}...`)
+			const request = await mc.lookup({ host: domain, ping: false })
+			ping = {
+				players: request.status.players.online,
+				max: request.status.players.max
+			}
 
-    try {
-        
-        console.log(`Pinging ${domain}:${port}...`)
-        ping = await mc.lookup({ host: domain, ping: false })
+		} catch (error) {
+			
+			console.error(`Cannot ping ${domain}:${port}`)
+			console.error(error.message)
+			console.log(`Trying ${ip}:${port}...`)
 
-    } catch (error) {
-        
-        console.error(`Cannot ping ${domain}:${port}`)
-        console.error(error.message)
-        console.log(`Trying ${ip}:${port}...`)
+			try {
+				const request = await mc.lookup({ host: domain, ping: false })
+				ping = {
+					players: request.status.players.online,
+					max: request.status.players.max
+				}
+			} catch (error) {
+				console.error(`Cannot ping ${ip}:${port}. Is server down?`)
+				console.error(error.message)
+			}
 
-        try {
-            ping = await mc.lookup({ host: ip, ping: false })
-        } catch (error) {
-            console.error(`Cannot ping ${ip}:${port}. Is server down?`)
-            console.error(error.message)
-        }
+		}
+	} else {
+		ping = {
+			players: +fs.readFileSync('/var/minecraft/current_online', 'utf8'),
+			max: +fs.readFileSync('/var/minecraft/max_online', 'utf8')
+		}
+	}
 
-    }
 
     await savePing(ping)
 })

@@ -15,7 +15,7 @@ const routes = {
 	'read': read
 }
 
-// Берём онлайн для шапки
+// Берём онлайн, тпс, аптайм
 // (я не стал оформлять это в middleware, потому что пока это только впустую усложнит структуру)
 import db from '#lib/db'
 const getOnline = async (req, res, next) => {
@@ -75,6 +75,15 @@ const getOnline = async (req, res, next) => {
 		}
 	
 		res.locals.online = online
+		
+		// ТПС
+		let [tps] = await db.execute('SELECT * FROM tps ORDER BY date DESC LIMIT 1')
+		res.locals.tps = tps[0].value
+		
+		// Аптайм
+		let [uptime] = await db.execute('SELECT * FROM uptime ORDER BY date DESC LIMIT 1')
+		console.log(uptime[0].value)
+		res.locals.uptime = uptime[0].value
 		
 	}
 
