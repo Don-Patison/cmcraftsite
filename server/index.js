@@ -32,7 +32,11 @@ cmc.use(router)
 cmc.use(express.static('public'))
 
 // 404
-cmc.use((req, res) => {
+cmc.use(async (req, res) => {
+	let [tps] = await db.execute('SELECT * FROM tps ORDER BY date DESC LIMIT 1')
+	res.locals.tps = tps[0].value
+	let [uptime] = await db.execute('SELECT * FROM uptime ORDER BY date DESC LIMIT 1')
+	res.locals.uptime = uptime[0].value
 	res.status(404).render('pages/not-found', { req })
 });
 
