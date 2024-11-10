@@ -8,7 +8,6 @@ if (config.remote) {
 	schedule.scheduleJob('*/10 * * * *', async () => {
 
 		const tps = +fs.readFileSync('/var/minecraft/current_tps', 'utf8')
-		console.log(tps)
 		
 		await db.query(`
 			INSERT INTO tps (value) 

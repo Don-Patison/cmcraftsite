@@ -82,7 +82,6 @@ const getOnline = async (req, res, next) => {
 		
 		// Аптайм
 		let [uptime] = await db.execute('SELECT * FROM uptime ORDER BY date DESC LIMIT 1')
-		console.log(uptime[0].value)
 		res.locals.uptime = uptime[0].value
 		
 	}
