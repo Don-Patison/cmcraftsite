@@ -1,6 +1,8 @@
 import express from 'express'
 const cmc = express()
 
+import db from "#lib/db"
+
 import apicache from 'apicache'
 const cache = apicache.middleware
 apicache.clear()
