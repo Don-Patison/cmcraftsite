@@ -20,7 +20,7 @@
 
 4. Xaero’s Minimap Fair-Play Edition, далее просто FP-миникарта;
 
-5. Xaero’s World Map — <new>только FP-миникартой!</new>
+5. Xaero’s World Map — <new>только с FP-миникартой!</new>
 
 6. Подсветка руд;
 
