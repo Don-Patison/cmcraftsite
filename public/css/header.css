@@ -143,6 +143,8 @@ menu {
 }
 	.status-up {
 		background-color: #00ca6f;
+		box-shadow: 0 0 0.66em #00ca6fb8;
+		animation: 2s blink infinite step-end;
 	}
 	.status-down {
 		background-color: #ff0000;
