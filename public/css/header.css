@@ -139,7 +139,6 @@ menu {
 	width: 0.33em;
 	height: 0.33em;
 	border-radius: 50%;
-	animation: 2s blink infinite step-end;
 }
 	.status-up {
 		background-color: #00ca6f;
@@ -148,6 +147,7 @@ menu {
 	}
 	.status-down {
 		background-color: #ff0000;
+		box-shadow: 0 0 0.66em #ff00007a;
 	}
 	.status-unknown {
 		background-color: #746e6e;
