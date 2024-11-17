@@ -451,7 +451,7 @@ const events = [
 		description: 'Гости: Rigbi_ и DemonDamien.'
 	}, {
 		date: '27.02.2022',
-		title: 'Norberion выиграл 792 алмаза',
+		title: 'Norbertion выиграл 792 алмаза',
 		description: 'Номер билета лотереи был 56.'
 	}, {
 		date: '27.02.2022',
