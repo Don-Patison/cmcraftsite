@@ -1113,8 +1113,8 @@ const events = [
 		description: '97 игроков проголосовали «за», 36 — «против».'
 	}, {
 		date: '17.05.2023',
-		title: 'Война ГП и РЛТ',
-		description: 'Победила РЛТ.',
+		title: 'Война ГП и Альянса',
+		description: 'Победил Альянс.',
 		link: 'https://youtube.com/live/7XeVRFnUVkU',
 		type: 'war',
 	}, {
