@@ -684,7 +684,7 @@ const events = [
 	},  {
 		date: '24.07.2022',
 		title: 'Bronken выпустил видео о сервере',
-		description: 'За него проголосовало 56 человек.'
+		link: 'https://youtube.com/watch?v=3SPLJSclc30'
 	}, {
 		date: '27.07.2022',
 		title: 'Появился мерч Смкрафта — значки',
