@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+    <%- include('../layout/head'); -%>
+	<% 
+		let title = text.match(/<h1>(.*?)<\/h1>/g)
+		title &&= title[0].replaceAll(/<.*?>/g, '')
+	%>
+	<title><%- title ? `${title} @ ${locals.SEO.title}` : locals.SEO.title %></title>
+	<meta name = "description" content = "<%- locals.SEO.description %>">
+</head>
+<body>
+
+    <%- include('../layout/header'); -%>
+
+	<style>.read p { font-size: 90%; } .read h1, .read h2, .read h3, .read h4 { margin-bottom: 1em; }</style>
+
+	<% const url = req.url.replaceAll('/', '') %>
+
+    <main>
+
+		<section class = "container indent read <%- url %>">
+			
+			<%- text %>
+
+		</section>
+
+	</main>
+
+	<%- include('../layout/footer'); -%>
+    
+</body>
+</html>

@@ -1,0 +1,171 @@
+/* General styles */
+
+:root {
+	--font: 'Golos UI', 'Trebuchet MS', sans-serif;
+	--font-accent: 'Golos Text', 'Tahoma', sans-serif;
+	
+	--shadow--lighter: 0 0px 0.4px -8px rgba(0, 0, 0, 0.015), 0 0px 0.9px -8px rgba(0, 0, 0, 0.027), 0 0px 1.4px -8px rgba(0, 0, 0, 0.038), 0 0px 2.2px -8px rgba(0, 0, 0, 0.048), 0 0px 3.1px -8px rgba(0, 0, 0, 0.057), 0 0px 4.4px -8px rgba(0, 0, 0, 0.066), 0 0px 6.3px -8px rgba(0, 0, 0, 0.075), 0 0px 9.1px -8px rgba(0, 0, 0, 0.083), 0 0px 14.1px -8px rgba(3, 1, 0, 0.092), 0 0px 25px -8px rgba(3, 2, 0, 0.1);
+	--shadow--light: 0 0.1px 0.6px rgba(0, 0, 0, 0.014), 0 0.1px 1.3px rgba(0, 0, 0, 0.02), 0 0.3px 2.5px rgba(0, 0, 0, 0.025), 0 0.4px 4.5px rgba(0, 0, 0, 0.03), 0 0.8px 8.4px rgba(5, 2, 0, 0.036), 0 2px 20px rgba(7, 3, 0, 0.05);
+	--shadow: 0 0.2px 0.3px rgba(0, 0, 0, 0.031), 0 0.6px 0.8px rgba(0, 0, 0, 0.044), 0 1.2px 1.6px rgba(0, 0, 0, 0.056), 0 2.6px 3.3px rgba(0, 0, 0, 0.069), 0 7px 9px rgba(0, 0, 0, 0.1);
+
+	--svg-sparkline-padding: 2px 0 0 0;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: var(--font);
+	font-feature-settings: "kern";
+	text-rendering: optimizeLegibility;
+	line-height: 1.4;
+	font-size: 150%;
+	color: #070400;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-image: linear-gradient(to right, rgba(255,255,255, 0.85) 0 100%), url('/img/clouds.png');
+	background-repeat: no-repeat;
+	background-position: center calc(100% - 7em);
+}
+
+strong, b {
+	font-weight: 700;
+}
+
+a,
+a u {
+	color: #0060a0;
+	text-decoration: underline;
+	text-decoration-thickness: 0.05em;
+	text-underline-offset: .175em;
+	text-decoration-color: color-mix(in srgb, currentColor, transparent 80%);
+	text-decoration-skip: none;
+	text-decoration-skip-ink: none;
+}
+
+a:has(u) {
+	text-decoration: none;
+}
+
+a:hover,
+a:hover u {
+	color: #d65d00;
+	text-decoration-color: currentColor;
+}
+
+a:active {
+	color: #d20000;
+}
+
+a.active {
+	text-decoration: none;
+	color: inherit;
+	pointer-events: none;
+}
+
+h1, h2, h3, h4, h5, h6,
+.title {
+	font-family: var(--font-accent);
+	font-weight: 720;
+	line-height: 1;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+}
+h1 {
+	margin-top: 0;
+	font-size: 2.1em;
+	text-align: center;
+}
+h2 {
+	font-size: 1.6em;
+}
+h3 {
+	font-size: 1.33em;
+}
+h4 {
+	font-size: 1.16em;
+}
+h5 {
+	font-size: 1em;
+}
+p, ol, ul {
+	margin-bottom: 1rem;
+}
+.indent p:not(li p):not(.rule p) {
+	text-indent: 2rem;
+}
+	.indent p > img {
+		margin-left: -2rem;
+	}
+ol, ul {
+	margin-left: 2rem;
+}
+hr {
+	border-color: #eeeeee32;
+	margin: 1.5em 0;
+}
+img {
+	max-width: 100%; 
+	width: min-content; 
+	height: auto;
+}
+code {
+	font-family: monospace;
+	font-weight: 500;
+	padding: 0.05em 0.25em;
+	font-size: 110%;
+	background-color: #8882;
+	border-radius: 0.4em;
+	outline: 1px solid color-mix(in srgb, currentColor, transparent 85%);
+	white-space: nowrap;
+}
+
+/* Layout */
+.container {
+	width: 1080px;
+	margin: auto;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+@media screen and (max-width: 1536px) {
+	body {
+		background-size: 120%;
+	}
+}
+
+@media screen and (max-width: 1100px) {
+	.container {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.container {
+		padding-left: 0.8em;
+		padding-right: 0.8em;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+	html, body {
+		scrollbar-gutter: stable;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #2d2a27;
+		color: #f5f4f2;
+		background-image: linear-gradient(to right, #2d2a27f9 0 100%),url('/img/clouds.png');
+	}
+	a, 
+	a u {
+		color: #4eb8ff;
+		text-decoration-color: color-mix(in srgb, currentColor, transparent 60%);
+	}
+}

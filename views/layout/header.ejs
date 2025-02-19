@@ -1,0 +1,258 @@
+<script type="module" src = "/js/lib/svg-sparkline.min.js" async></script>
+
+<nav>
+    <menu class = "container">
+		<% const links = {
+			primary: [
+				{ href: '', text: 'Главная' },
+				{ href: 'read/faq', text: 'FAQ' },
+				{ href: 'rules/intro', text: 'Правила' }
+			],
+			secondary: [
+				{ href: 'history', text: 'История' },
+                { href: 'map', text: 'Карта' },
+				{ href: 'read/contacts', text: 'Контакты' },
+				{ href: 'read/about', text: 'Прочее' }
+			]
+		}; %>
+
+		<% const statusMessages = {
+			up: 'Сервер работает',
+			down: 'Сервер пока что выключен',
+			unknown: 'Состояние сервера неизвестно'
+		}; %>
+	  
+		<% links.primary.forEach(link => { %>
+			<a 
+				href="/<%= link.href %>" 
+				class="
+					menu-link 
+					<%= 
+						(req.fullPath.some(p => p === link.href.split('/').at(-1)) || link.href === '' && req.fullPath.length === 0) ? 'active' : '' 
+				%>"
+			>
+				<%= link.text %>
+			</a>
+		<% }); %>	
+		
+		<div class = "secondary-links">
+			<% links.secondary.forEach(link => { %>
+				<a 
+					href="/<%= link.href %>" 
+					class="<%= 
+						(req.fullPath.some(p => p === link.href.split('/').at(-1)) || link.href === '' && req.fullPath.length === 0) ? 'active' : '' 
+					%>"
+				>
+					<%= link.text %>
+				</a>
+			<% }); %>
+		</div>
+
+		
+        <div class = "connect">
+			Подключиться — <strong class = "ip">cmcraft.su</strong>
+        </div>
+
+	</menu>
+
+	<% if (locals.online) { %>
+	<div class = "container online">
+		 
+		<div class = "online-plot" style = "height: 64px">
+			<!-- width="1152" -->
+			<svg-sparkline
+				values="<%- locals.online.values %>" 
+				curve="true" 
+				color="#00ca6f"
+				line-width="3"
+				endpoint="false"
+				width = "<%- 38 * locals.online.values.length %>"
+				height="55"
+				gradient="true" 
+				gradient-color="color-mix(in srgb, #00ca6f, transparent 85%)"
+			>
+			</svg-sparkline>
+			<!-- <span id = "online-plot-min"></span>
+			<span id = "online-plot-max"></span> -->
+		</div>
+		
+		<div class = "online-value">
+			<div 
+				class = "status status-<%- locals.online.status %>"
+				title = "<%- statusMessages[locals.online.status]%>"
+			></div>
+			<%- locals.online.current %>/<%- locals.online.max %> онлайн
+			<% if (locals.online.status !== 'up') { %>
+				<small class = "online-record">
+					Идут техработы
+				</small>
+			<% } %>
+			<small 
+				class = "online-record"
+				title = "Установлен <%- new Intl.DateTimeFormat("ru-RU", {
+					day: 'numeric',
+					month: 'long',
+					year: 'numeric',
+				}).format(locals.online.record.date).replace('г.', '')%>"
+			>
+				Рекорд — <%- locals.online.record.players %>
+			</small>
+		</div>
+
+	</div>
+	<% } %>
+
+</nav>
+
+<script>
+	const plot = {
+		el: document.querySelector('svg-sparkline'),
+		container: document.querySelector('.online-plot'),
+	}
+	plot.values = plot.el.getAttribute("values").replace(' ', '').split(',').map(Number);
+
+	// Расчёт отностиельных координат всех значений
+	plot.coordinates = plot.values.map((value, index) => {
+		return {
+			value,
+			x: index / (plot.values.length - 1),
+			y: value / Math.max(...plot.values)
+		}
+	});
+
+	function findNearestValueIndex(x) {
+		let nearestIndex = 0
+		let nearestDistance = Infinity
+
+		plot.coordinates.forEach((coord, index) => {
+			const distance = Math.abs(coord.x + (1/plot.values.length/4) - x);
+			if (distance < nearestDistance) {
+				nearestDistance = distance
+				nearestIndex = index
+			}
+    	})
+
+		return nearestIndex
+	}
+
+	// Стили указателя значения
+	const valueStyles = {
+		position: 'absolute',
+		fontSize: '55%',
+		textAlign: 'center',
+		fontWeight: '600',
+		fontFamily: 'var(--font-accent)',
+		direction: 'ltr',
+		whiteSpace: 'nowrap',
+		padding: '0 0.25rem',
+		backdropFilter: 'blur(4px)',
+		color: 'color-mix(in srgb, currentColor, transparent 10%)',
+		borderRadius: '0.3rem',
+		boxShadow: 'var(--shadow--lighter)',
+		transform: 'translate(-50%, 0)',
+	};
+	
+	// Показать значение ближайшей к курсору точки
+	function showValueAtCoordinates(index) {
+		if (index === plot.coordinates.length-1 || index === 0) return;
+
+		const valueEl = document.createElement('div')
+		const valueCoordinates = plot.coordinates[index]
+		
+		for (const style in valueStyles) {
+			valueEl.style[style] = valueStyles[style]
+		}
+		valueEl.style.backgroundColor = valueCoordinates.value !== 0 ? '#00ca6f66' : '#ff2222aa',
+
+		valueEl.style.left = `calc(${valueCoordinates.x * 100}%)`
+		
+		if (valueCoordinates.y > 0.5) {
+			valueEl.style.bottom = `calc(${valueCoordinates.y * 100}% - 1.4rem - 0.25rem - 4px)`
+			valueEl.style.clipPath = 'polygon(50% 0%, 66% 25%, 100% 30%, 100% 70%, 100% 100%, 50% 100%, 0 100%, 0% 70%, 0 30%, 33% 25%)'
+			valueEl.style.paddingTop = '0.33rem'
+		} else {
+			valueEl.style.bottom = `calc(${valueCoordinates.y * 100}% + 2px)`
+			valueEl.style.clipPath = 'polygon(0 0, 100% 0, 100% 70%, 66% 75%, 50% 100%, 33% 75%, 0 70%)'
+			valueEl.style.paddingBottom = '0.33rem'
+		}
+		valueEl.innerHTML = String(plot.values[index])
+
+		return valueEl
+	}
+
+	plot.el.addEventListener('mousemove', (event) => {
+		const rect = plot.el.getBoundingClientRect()
+		const x = (event.clientX - rect.left) / rect.width
+		const nearestIndex = findNearestValueIndex(x)
+		const shadow = plot.el.shadowRoot
+		const wrapper = shadow.getElementById('wrapper')
+
+		if (wrapper.querySelector('.value-display')) {
+			wrapper.querySelector('.value-display').remove()
+		}
+
+		const valueEl = showValueAtCoordinates(nearestIndex)
+		valueEl.classList.add('value-display')
+		wrapper.appendChild(valueEl)
+	});
+
+	setTimeout(() => {
+		const shadow = plot.el.shadowRoot
+		shadow.innerHTML = `<div id="wrapper">${plot.el.shadowRoot.innerHTML}</div>`
+		shadow.querySelector('title').innerHTML = 'График онлайна'
+		const wrapper = shadow.getElementById('wrapper')
+		wrapper.style.height = shadow.querySelector('svg').getAttribute('height')
+		wrapper.style.position = "relative"
+	}, 228);
+</script>
+  
+
+<script>
+// Прокрутка графика онлайна жестом
+plot.container.style.cursor = 'grab';
+
+let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+const mouseDownHandler = function (e) {
+    plot.container.style.cursor = 'grabbing';
+    plot.container.style.userSelect = 'none';
+
+    pos = {
+        left: plot.container.scrollLeft,
+        top: plot.container.scrollTop,
+        x: e.clientX,
+        y: e.clientY,
+    };
+
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
+};
+
+const mouseMoveHandler = function (e) {
+    const dx = e.clientX - pos.x;
+    const dy = e.clientY - pos.y;
+    plot.container.scrollTop = pos.top - dy;
+    plot.container.scrollLeft = pos.left - dx;
+
+	const wrapper = plot.el.shadowRoot.getElementById('wrapper')
+	if (wrapper.querySelector('.value-display')) {
+		wrapper.querySelector('.value-display').remove()
+	}
+};
+
+const mouseUpHandler = function () {
+    plot.container.style.cursor = 'grab';
+    plot.container.style.removeProperty('user-select');
+    document.removeEventListener('mousemove', mouseMoveHandler);
+    document.removeEventListener('mouseup', mouseUpHandler);
+};
+
+plot.container.addEventListener('mousedown', mouseDownHandler);
+</script>
+
+<script>
+	// Прокрутка к выбранной странице в меню, актуально на мобиле
+	const menu = document.querySelector('menu')
+	const active = document.querySelector('menu a.active')
+	menu.scrollLeft = active.offsetLeft + active.clientWidth/2 - menu.offsetWidth/2
+</script>

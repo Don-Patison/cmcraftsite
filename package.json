@@ -1,0 +1,28 @@
+{
+	"name": "cmcraft.su",
+	"description": "Сайт ЦМ Крафта",
+	"type": "module",
+	"scripts": {
+		"dev": "nodemon index.js",
+		"start": "node index.js"
+	},
+	"dependencies": {
+		"ejs": "^3.1.10",
+		"express": "^4.21.0",
+		"express-compression": "^1.0.2",
+		"jsdom": "^25.0.1",
+		"markdown-it": "^14.1.0",
+		"minecraftstatuspinger": "^1.1.5",
+		"mysql2": "^3.11.3",
+		"node-schedule": "^2.1.1",
+		"nodemon": "^3.1.4"
+	},
+	"imports": {
+		"#views/*": "./views/*.ejs",
+		"#server/*": "./server/*.js",
+		"#public/*": "./public/*",
+		"#lib/*": "./server/lib/*.js",
+		"#middleware/*": "./server/middleware/*.js",
+		"#config": "./config.js"
+	}
+}

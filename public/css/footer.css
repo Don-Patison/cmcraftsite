@@ -1,0 +1,38 @@
+footer {
+	margin-top: auto;
+}
+
+.footer {
+	display: flex;
+	padding-bottom: 2rem;
+	justify-content: center;
+	position: relative;
+}
+	.footer-cmc {
+		display: flex;
+		gap: 1em;
+		align-items: center;
+	}
+		.footer-cmc img {
+			height: 32px;
+			image-rendering: crisp-edges;
+			image-rendering: pixelated;
+		}
+		.footer-heart {
+			height: 16px !important;
+		}
+		.footer .server-info {
+			font-size: 50%;
+			position: absolute;
+			right: 0;
+			opacity: 0.7;
+		}
+
+@media screen and (max-width: 650px) {
+	.footer {
+		padding-bottom: 1em;
+	}
+	.footer-line {
+		margin-bottom: 0.5em;
+	}
+}

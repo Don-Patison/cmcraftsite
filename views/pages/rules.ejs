@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+	<%- include('../layout/head'); -%>
+
+	<title>Правила @ <%- locals.SEO.title %></title>
+	<meta name = "description" content = "<%- locals.SEO.description%>">
+	
+	<link rel = "stylesheet" href = "/css/pages/rules.css">
+</head>
+<body>
+
+		<%- include('../layout/header'); -%>
+
+			<nav class="rule-categories">
+				<% categories.forEach(category => { %>
+					<a 
+						href="/rules/<%= category.url === 'general' ? '' : category.url %>" 
+						class="
+							rule-category 
+							<%= 
+								req.fullPath.includes(category.url)
+								|| category.url === 'general' && (
+									req.fullPath.length === 1
+								)
+								 ? 'active' : '' %>
+						"
+						title = "<%- category.description %>"
+					>
+						<nobr><%- category.title %></nobr>
+					</a>
+				<% }) %>
+			</nav>
+		</nav>
+
+		<main>
+			<section class="container indent">
+				
+				<% if (req.fullPath.length === 1 || req.fullPath.includes('administration')) { %>
+					<search class = "rules-search">
+						<input
+							type="search"
+							id="search"
+							placeholder="Поиск..."
+							oninput="searchRules()"
+						/>
+						<div id = "tags" class = "rules-search-tags"></div>
+					</search>
+					<% if (req.fullPath.length === 1) { %>
+					 	<label style="font-size: 60%;user-select: none;">
+							<input type="checkbox" id="notes-toggler" value="true">
+							Примечания
+						</label>
+					<% } %>
+				<% } %>
+
+				<div class = "
+					rules
+					<%= (req.fullPath.length === 1) ? 'general' : req.fullPath[1] %>
+					<%= (req.query.search) ? 'searched' : '' %>
+				">
+					<%- text %>
+				</div>
+
+			</section>
+		</main>
+
+		<%- include('../layout/footer'); -%>
+		
+		<script>
+			const originalRules = document.querySelector('.rules').innerHTML
+			// Функция, извлекающая правила как массив объектов { number, name, description, tags }
+			function extractRules() {
+				const rulesArray = []
+				const rulesSection = document.querySelector('.rules ol')
+
+				// Перебираем рекурсивно
+				function processListItems(listItems, prefix = '') {
+					listItems.forEach((item, index) => {
+
+						// Достаём номер
+						const number = prefix ? `${prefix}.${index + 1}` : `${index + 1}`
+
+						// Пропускаем сами правила 1 и 2, обрабатываем их детей
+						if (number === '1' || number === '2') {
+							const nestedList = item.querySelector('ol')
+							if (nestedList) {
+								processListItems(Array.from(nestedList.children), number)
+							}
+							return
+						}
+
+						// Достаём название, описание, тэги
+						const strongElement = item.querySelector('strong')
+						const descriptionParagraphs = Array.from(item.querySelectorAll('p'))
+							.filter(
+								(p, i) => !p.querySelector('strong') // убирает параграф с названием
+										&& p.parentElement === item // убирает параграфы дочерних правил
+							)
+						const tags = item.querySelector('tags')
+						
+						// Записываем
+						const rule = {
+							number: number,
+							name: strongElement?.outerHTML,
+							description: descriptionParagraphs.map(p => p.outerHTML).join(' '),
+							tags: tags ? tags.innerHTML.split(', ') : []
+						}
+						rulesArray.push(rule)
+
+						// Продолжаем рекурсию
+						const nestedList = item.querySelector('ol')
+						if (nestedList) {
+							processListItems(Array.from(nestedList.children), number)
+						}
+					})
+				}
+
+				processListItems(Array.from(rulesSection.children))
+				return rulesArray
+			}
+
+			const rules = extractRules()
+
+		</script>
+
+		<script>
+			// Поиск. Мега костыль, но зато md-файлы будут чистые. Пусть потеет машина!
+			// Работает только с general.md, хотя в теории можно допилить. Но что искать в других разделах? :)
+			function searchRules() {
+				const query = document.getElementById('search').value.toLowerCase();
+				const results = [];
+
+				const rulesContainer = document.querySelector('.rules');
+
+				if (query) {
+					// Записываем GET-параметр
+					window.history.pushState('', '', `?search=${query}`);
+
+					const numbers = new Set();
+
+					rules.forEach(rule => {
+						const { number, name, description, tags } = rule;
+
+						// Вытягиваем названия, описания и тэги правил
+						const nameText = name?.replace(/<[^>]*>/g, '').toLowerCase();
+						const descriptionText = description.replace(/<[^>]*>/g, '').toLowerCase();
+						const tagsText = tags.map(tag => tag.replace(/<[^>]*>/g, '').toLowerCase());
+
+						// Сверяем с запросом
+						if (number.toLowerCase().includes(query) || 
+							nameText?.includes(query) || 
+							descriptionText.includes(query) ||
+							tagsText.some(tag => tag.includes(query))) {
+
+							// Оборачиваем совпадения в <mark>
+							const highlighted = {
+								name: name?.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`),
+								description: description.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`),
+								tags: rule.tags.map(tag => tag.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`))
+							};
+
+							// Записываем, если ещё не записали
+							if (!numbers.has(number)) {
+								numbers.add(number);
+								results.push(
+									`<div class="rule" style="margin-left: 2em;">
+										<span class="rule-number">
+											${number}.
+										</span>
+										${highlighted.name ? `<div class="rule-name">${highlighted.name}</div>` : ''}
+										${highlighted.tags.length > 0 ? `<span class="rule-tags">${highlighted.tags.join(', ')}</span>` : ''}
+										<div class="rule-description">
+											${highlighted.description}
+										</div>
+									</div>`.replaceAll('\t', '')
+								);
+							}
+						}
+					});
+				} else {
+					// Если запрос пустой, чистим GET-параметры
+					window.history.replaceState(null, '', window.location.pathname); 
+					rulesContainer.innerHTML = originalRules;
+					return;
+				}
+
+				// Нашлось ли что-то?
+				if (results.length > 0) {
+					rulesContainer.innerHTML = results.join('')
+				} else {
+					rulesContainer.innerHTML = `<span class="">Ничего не найдено :(</span>`
+				}
+			}
+
+			const query = new URLSearchParams(window.location.search).get('search')
+			if (query) {
+				document.getElementById('search').value = query
+				searchRules()
+			}
+		</script>
+
+		<script>
+			// Прокрутка к выбранной категории, актуально на мобиле
+			const ruleCategories = document.querySelector('.rule-categories')
+			const activeCategory = document.querySelector('.rule-category.active')
+			ruleCategories.scrollLeft = activeCategory.offsetLeft - 50
+		</script>
+
+		<script>
+			// Вытягиваем тэги и количества
+			let tags = {}
+			for (const rule of rules) {
+				for (const tag of rule.tags) {
+					if (!tags[tag]) {
+						tags[tag] = 1
+					} else {
+						tags[tag]++
+					}
+				}
+			}
+			// Сортировка
+			tags = Object.entries(tags)
+				.sort(([,a],[,b]) => a-b)
+				.reverse()
+				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+
+			// Вставляем под поиск
+			const tagsContainer = document.getElementById('tags')
+			for (tag in tags) {
+				const count = tags[tag]
+				tagsContainer.innerHTML += `<a class = "rules-search-tag" href = "?search=${tag}">${tag} · ${count}</a>`
+			}
+		</script>
+
+		<script>
+			// Расставляем пояснения для <new>
+			document.querySelectorAll('new').forEach(el => el.title = "Это появилось недавно") 
+		</script>
+
+		<% if (req.fullPath.length === 1) { %>
+			<script>
+				const showNotes = localStorage.getItem('showNotes') === 'true' || true
+				
+				const toggler = document.getElementById('notes-toggler')
+				toggler.value = showNotes
+				
+				toggler.addEventListener('change', event => {
+					const notes = document.querySelectorAll('note')
+					const show = event.target.checked
+					
+					notes.forEach(note => note.style.visibility = show ? 'visible' : 'hidden')
+					localStorage.setItem('showNotes', show)
+				}) 
+			</script>
+		<% } %>
+		
+</body>
+</html>

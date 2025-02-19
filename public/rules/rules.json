@@ -1,0 +1,37 @@
+[
+    {
+        "url": "intro",
+        "title": "Введение",
+        "description": ""
+    },
+    {
+        "url": "general",
+        "title": "Основные",
+        "description": "Вписаться в общество или быть счастливым?"
+    },
+    {
+        "url": "mods",
+        "title": "Моды",
+        "description": ""
+    },
+    {
+        "url": "admin",
+        "title": "Администрация",
+        "description": ""
+    },
+    {
+        "url": "war",
+        "title": "Войны",
+        "description": ""
+    },
+    {
+        "url": "other",
+        "title": "Прочее",
+        "description": ""
+    },
+    {
+        "url": "discord",
+        "title": "Дискорд",
+        "description": ""
+    }
+]

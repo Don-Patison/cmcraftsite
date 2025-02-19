@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang = "ru">
+<head>
+    <%- include('../layout/head'); -%>
+
+	<title><%- locals.SEO.title %></title>
+	<meta name = "description" content = "<%- locals.SEO.description %>">
+
+	<link rel="preload" as="image" href="/img/pie.svg">
+    <link rel = "stylesheet" href = "/css/pages/index.css">
+</head>
+<body>
+
+    <%- include('../layout/header'); -%>
+
+    <main>
+
+		<section class = "container banner">
+
+			<div class = "banner-hero">
+				<h1 class = "banner-title">
+                    CMCraft
+				</h1>
+				<p class = "banner-subtitle">
+					Ванильный сервер
+				</p>
+				<nobr class = "banner-caption">
+					 Без доната · Без приватов · Без грифа
+				</nobr>
+			</div>
+
+			<div class = "banner-season">
+				<% 
+					const start = locals.minecraft.season.start 
+					const now = new Date()
+
+					const dateFormat = {
+						month: 'long', 
+						day: 'numeric',
+					}
+					if (now.getFullYear() > start.getFullYear()) {
+						dateFormat.year === 'long'
+					}
+					
+					const formattedStart = new Intl.DateTimeFormat('ru-RU', dateFormat).format(start)
+				%>
+
+				<!-- Текущий сезон -->
+				<% if (start < now && locals.minecraft.season.number % 1 === 0) { %>
+					<% if (start.getDate() === 2) { %>
+						Со
+					<% } else { %>
+						С
+					<% } %>
+					<%- formattedStart %> 
+					идёт <b><%- locals.minecraft.season.number %></b> сезон
+
+				<!-- Межсезонье -->
+				<% } else if (locals.minecraft.season.number % 1 !== 0) { %>
+					<b><%- Math.floor(locals.minecraft.season.number) %></b> сезон — всё. Идёт межсезонье.		
+				
+				<!-- Анонс -->
+				<% } else if (start > now) { %>
+					<b><%- locals.minecraft.season.number %></b> сезон начнётся <b><%- formattedStart %></b>
+				<% } %>
+
+			</div>
+
+		</section>
+
+		<section class = "container info">
+
+			<div class="info-block main">
+				<h2>О сервере</h2>
+				<p>
+					Мы стараемся обеспечить опыт игры, максимально приближённый к ванильному выживанию.
+                    У нас нет приватов и кучи других шлаковых плагинов. Только те дополнения, которые необходимы
+                    для комфортной игры и стабильной работы сервера.
+				</p>
+                <p>
+                    На сервере отсутствуют любые формы доната, даже косметического, что делает всех игроков
+                    абсолютно равными, в том числе перед <a href = "/rules">правилами</a>. Если вы подвергнетесь
+                    нападению или вашу базу разрушат, вы можете обратиться к админам, они откатят её в
+                    первоначальное состояние.
+                </p>
+				<p>
+					Сервер работает на выделенной машине и поддерживается грамотной технической администрацией,
+                    что позволяет обеспечить высокую производительность, хороший аптайм и низкий пинг.
+				</p>
+			</div>
+
+			<div class="info-block secondary">
+				<h2>Как начать играть?</h2>
+				<p>
+					Это бесплатно, нужно всего лишь заполнить <a href>небольшую анкету</a>
+                    в нашей группе ВК. Её рассмотрение займет около одного-двух дней, после чего,
+                    в случае одобрения, вы будете занесены в белый список и сможете зайти на сервер.
+                    Для посторонних сервер закрыт — это нужно для того, чтобы отсеять гриферов и ботов.
+				</p>
+				<p>
+					Регистрация на нашем сервере всегда была и будет бесплатной, а аккаунты
+					никогда не удаляются.
+				</p>
+				<p>
+					Также советуем вступить в наш <a href = "https://discord.com/invite/MPfPsXabjK">дискорд,</a>
+					где мы общаемся, выкладываем новости и оповещаем об ивентах.
+				</p>
+			</div>
+
+			<div class="info-block tertiary-1">
+				<div style = "font-size: 6em; line-height: 1;">
+					<%- locals.formsPerMonth %>
+				</div>
+				<p>анкет за <%- locals.currentMonth %></p>
+			</div>
+
+			<div class="info-block tertiary-2">
+				<div style = "font-size: 6em; line-height: 1;">
+					<%- Math.floor((new Date() - locals.minecraft.season.start) / (1000*60*60*24)) %>
+				</div>
+				<p>дней с начала сезона</p>
+			</div>
+
+		</section>
+
+	</main>
+
+	<%- include('../layout/footer'); -%>
+    
+</body>
+</html>

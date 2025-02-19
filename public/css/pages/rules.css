@@ -1,0 +1,204 @@
+.rules {
+	font-size: 90%;
+}
+	.rules.searched {
+		animation: appear 0.08s;
+	}
+	.rules.general b,
+	.rules.general strong {
+		font-family: var(--font-accent);
+	}
+	.rules h1 { /* Странно выглядит, когда дублируется с навигацией. Отключил. */
+		display: none;
+	}
+
+ol {
+	counter-reset: item;
+	list-style: none;
+}
+	ol {
+		margin-left: 3em;
+	}
+		.rules > ol {
+			margin-left: 0;
+		}
+		.rules > ol > li > ol {
+			margin-left: 2.7em;
+		}
+		.rules > ol > li > ol > li > ol {
+			margin-left: 3.7em;
+		}
+		.rules > ol > li > ol > li > ol > li > ol {
+			margin-left: 4.7em;
+		}
+
+	ol li,
+	.rule {
+		position: relative;
+		margin-top: 1.3rem;
+		margin-bottom: 1.3rem;
+	}
+		ol li:before,
+		.rule-number {
+			content: counters(item, ".") ".";
+			counter-increment: item;
+			position: absolute;
+			right: calc(100% + 0.5rem);
+			text-align: right;
+			font-weight: bold;
+			background-color: #ec701125;
+			padding-left: 0.3rem;
+			font-family: var(--font-accent);
+			font-feature-settings: "tnum";
+		}
+
+		ol li > p,
+		.rule p {
+			margin-bottom: 0.5rem;
+			margin-top: 0.5rem;
+		}
+
+new {
+	text-decoration: underline;
+	text-decoration-color: #e48100;
+	text-decoration-thickness: 3px;
+	text-decoration-skip-ink: none;
+}
+
+.rule-tags,
+tags {
+	display: block;
+	opacity: 0.8;
+	font-size: 80%;
+	line-height: 1;
+}
+	.rule-tags::before,
+	tags::before {
+		content: "Тэги: ";
+	}
+	.rule-tags::after,
+	tags::after {
+		content: ".";
+	}
+
+.rule-categories {
+	padding: 0 2em;
+	display: flex;
+	justify-content: center;
+	gap: 1.5em;
+	margin-bottom: 2em;
+}
+	.rule-category {
+		font-size: min(100%, max(0.5em + 0.5cqw, 75%));
+		word-break: keep-all;
+	}
+		.rule-category.active {
+			font-weight: 1000;
+		}
+
+.rules-search {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1em;
+}
+	.rules-search > input {
+		text-align: center;
+		width: 100%;
+		padding: 0.3em 0.5em;
+		font-size: 80%;
+		border-radius: 0.3em;
+		border: 2px solid #9191914f;
+		background-color: transparent;
+		color: inherit;
+	}
+
+	.rules-search-tags {
+		margin-top: 0.2em;
+		display: flex;
+		gap: 0.3em;
+		justify-content: center;
+	}
+		.rules-search-tag {
+			text-decoration: none;
+			font-size: 50%;
+			background-color: #8080801a;
+			padding: 0 0.5em;
+			padding-bottom: 1px;
+			border-radius: 0.3em;
+		}
+
+.discord-role {
+	border-radius: 3px;
+	padding: 0 2px;
+	font-weight: 500;
+}
+.discord-role.red {
+	color: rgb(190, 0, 0); 
+	background-color: rgba(190, 0, 0, 0.1);
+}
+	.discord-role.red:hover {
+		background-color: rgba(190, 0, 0, 0.2);
+	}
+.discord-role.green {
+	color: rgb(7, 134, 24); 
+	background-color: rgba(7, 134, 24, 0.1);
+}
+	.discord-role.green:hover {
+		background-color: rgba(7, 134, 24, 0.2);
+	}
+.discord-role.blue {
+	color: rgb(11, 95, 190); 
+	background-color: rgba(7, 55, 110, 0.1);
+}
+	.discord-role.blue:hover {
+		background-color: rgba(7, 55, 110, 0.2);
+	}
+
+@media screen and (max-width: 1120px) {
+	.rules {
+		padding-left: 2em;
+		font-size: 65%;
+	}
+	.rules > ol > li > ol {
+		margin-left: 2.7em;
+	}
+	.rules > ol > li > ol > li > ol {
+		margin-left: 3.7em;
+	}
+	.rules > ol > li > ol > li > ol > li > ol {
+		margin-left: 4.7em;
+	}
+
+	.rule-categories {
+		padding: 0.3em 1em;
+		overflow: auto;
+		scrollbar-width: thin;
+		gap: 1em;
+		justify-content: flex-start;
+	}
+}
+
+@media screen and (max-width: 650px) {
+	.rules-search-tag {
+		font-size: 45%;
+		padding: 0 0.4em;
+	}
+	.rules > ol > li > ol > li > ol {
+		hyphens: auto;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	ol li:before {
+		background-color: #ec701157;
+	}
+	.rule-tags,
+	tags {
+		opacity: 0.5;
+	}
+}
+
+@keyframes appear {
+	from { opacity: 0 }
+	to { opacity: 1 }
+}
