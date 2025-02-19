@@ -249,7 +249,7 @@
 					const notes = document.querySelectorAll('note')
 					const show = event.target.checked
 					
-					notes.forEach(note => note.style.visibility = show ? 'visible' : 'hidden')
+					notes.forEach(note => note.style.display = show ? 'block' : 'none')
 					localStorage.setItem('showNotes', show)
 				}) 
 			</script>
